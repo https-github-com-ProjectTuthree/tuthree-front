@@ -5,6 +5,7 @@ import ClassCard from '../../../components/ClassCard';
 import ReviewContainer from '../../../components/Review';
 import MySchedule from './MySchedule';
 import Enrollment from './Enrollment';
+import { toJS } from 'mobx';
 
 const dummyData = [
   {
@@ -201,18 +202,24 @@ class Content extends Component {
               </div>
             );
           })} */}
+          {console.info(Auth.loggedUserType)}
           {Auth.loggedUserType === 'parent'
             ? MyClass.childClassAry &&
               MyClass.childClassAry.map((item, idx) => {
+                {
+                  console.info(toJS(item));
+                }
                 return (
                   <div
                     onClick={async () => {
-                      // MyClass.state = 2;
-                      // MyClass.teacherName = item.teacherName;
-                      // MyClass.studentName = item.studentName;
-                      // MyClass.teacherId = item.teacherId;
-                      // MyClass.studentId = item.studentId;
-                      // await MyClass.getCalendar();
+                      MyClass.state = 2;
+                      // await MyClass.getClass(item.studentId);
+                      MyClass.teacherName = item.teacherName;
+                      MyClass.studentName = item.studentName;
+                      MyClass.teacherId = item.teacherId;
+                      MyClass.studentId = item.studentId;
+                      await MyClass.getCalendar();
+                      // MyClass.parentState = 2;
                     }}
                   >
                     <ClassCard
@@ -233,13 +240,15 @@ class Content extends Component {
               MyClass.classAry.map((item, idx) => {
                 return (
                   <div
-                    onClick={async () => {
-                      MyClass.state = 2;
-                      MyClass.teacherName = item.teacherName;
-                      MyClass.studentName = item.studentName;
-                      MyClass.teacherId = item.teacherId;
-                      MyClass.studentId = item.studentId;
-                      await MyClass.getCalendar();
+                    onClick={async (e) => {
+                      // e.stopPropagation();
+                      console.info('card');
+                      // MyClass.state = 2;
+                      // MyClass.teacherName = item.teacherName;
+                      // MyClass.studentName = item.studentName;
+                      // MyClass.teacherId = item.teacherId;
+                      // MyClass.studentId = item.studentId;
+                      // await MyClass.getCalendar();
                     }}
                   >
                     <ClassCard
@@ -249,6 +258,7 @@ class Content extends Component {
                       studentName={item.studentName}
                       teacherName={item.teacherName}
                       teacherId={item.teacherId}
+                      studentId={item.studentId}
                       date={item.date}
                       subject={item.subject}
                       active={item.acitve}
@@ -397,6 +407,7 @@ const SortingBox = styled.div`
     padding 0 5px;
     box-sizing: border-box;
     font-size: 15px;
+    cursor: pointer;
   }
   @media (min-width: 0px) and (max-width: 767.98px) {
     > span {

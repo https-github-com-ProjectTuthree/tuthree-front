@@ -8,6 +8,12 @@ import deleteImg from '../../../../static/images/Signup/delete.png';
 import { ROOT_URL } from '../../../../axios/index';
 import { toJS } from 'mobx';
 
+const today = new Date();
+let date = null;
+let year = null;
+let month = null;
+let day = null;
+
 const dummyData = [
   { id: 1, title: '2021-2학기 모의고사 문제지', file: 'werrfewfefewf' },
   { id: 2, title: '2021-2학기 모의고사 문제지', file: 'werrfewfefewf' },
@@ -76,6 +82,11 @@ class Content extends Component {
 
   render() {
     const { MyClass, Common, Auth } = this.props;
+
+    year = today.getFullYear();
+    month = ('0' + (today.getMonth() + 1)).slice(-2);
+    day = ('0' + today.getDate()).slice(-2);
+    date = year + '-' + month + '-' + day;
     return (
       <Container>
         {Common.modalActive === true && Common.modalState === 1 && (
@@ -157,7 +168,11 @@ class Content extends Component {
                 </Answer>
               )}
 
-              <TuteeAnswer type="headerBold">
+              <DueDate type="header">
+                <div>기간</div>
+              </DueDate>
+
+              <TuteeAnswer>
                 <div>채점 결과</div>
               </TuteeAnswer>
             </Section>
@@ -248,6 +263,10 @@ class Content extends Component {
               MyClass.questionTotalList.map((item, idx) => {
                 // console.info(MyClass.questionTotalList.length);
                 console.info(idx);
+                console.info(toJS(item));
+                console.info(toJS(MyClass.markingStateObj));
+                console.info(toJS(MyClass.answerDueDateObj));
+                console.info(toJS(MyClass.answerDueDateObj[item.id]));
                 // if ((MyClass.questionTotalList.length + 1) % 2 === 1) {
                 //   console.info(MyClass.questionTotalList.length >= idx + 2);
                 // } else {
@@ -280,6 +299,7 @@ class Content extends Component {
                         />
                       )}
                     </Question>
+                    {/* {console.info(date < MyClass.answerDueDateObj.)} */}
                     {Auth.loggedUserType === 'teacher' ? (
                       <Answer
                         type="main"
@@ -306,7 +326,67 @@ class Content extends Component {
                           </div>
                         )}
                       </Answer>
-                    ) : (
+                    ) : Auth.loggedUserType === 'parent' ? (
+                      date < MyClass.answerDueDateObj[item.id] ? (
+                        <Answer
+                          type="main"
+                          state={item.checked}
+                          user={Auth.loggedUserType}
+                          active={
+                            (MyClass.questionTotalList.length + 1) % 2 === 1
+                              ? MyClass.questionTotalList.length >= idx + 2
+                              : MyClass.questionTotalList.length === idx + 1
+                          }
+                        >
+                          {console.info(
+                            '=========================================='
+                          )}
+                          {console.info(toJS(MyClass.markingStateAry[idx]))}
+                          {MyClass.markingStateObj[idx] ? (
+                            <div
+                              style={{
+                                backgroundColor: 'rgba(255,0,0,0.6)',
+                                color: '#fff',
+                              }}
+                            >
+                              {' '}
+                              <div>제출완료</div>
+                            </div>
+                          ) : item.checked ? (
+                            <div
+                              onClick={async () => {
+                                // MyClass.questionPostId = item.id;
+                                // console.info(toJS(item));
+                                // await MyClass.getAnswer(item.id);
+                                // MyClass.tuteeAnswerModalActive = true;
+                              }}
+                              style={{
+                                backgroundColor: 'rgba(0,85,255,0.6)',
+                                color: '#000',
+                                cursor: 'initial',
+                              }}
+                            >
+                              <div>답안제출</div>
+                            </div>
+                          ) : (
+                            <div>
+                              <div>미입력</div>
+                            </div>
+                          )}
+                        </Answer>
+                      ) : (
+                        <Answer type="main" state={true}>
+                          <div
+                            style={{
+                              display: 'block',
+                              backgroundColor: 'rgba(255,0,0,1)',
+                            }}
+                          >
+                            <div>제출만료</div>
+                          </div>
+                        </Answer>
+                      )
+                    ) : date < MyClass.answerDueDateObj[item.id] ? (
                       <Answer
                         type="main"
                         state={item.checked}
@@ -353,10 +433,33 @@ class Content extends Component {
                           </div>
                         )}
                       </Answer>
+                    ) : (
+                      <Answer type="main" state={true}>
+                        <div
+                          style={{
+                            display: 'block',
+                            backgroundColor: 'rgba(255,0,0,1)',
+                          }}
+                        >
+                          <div>제출만료</div>
+                        </div>
+                      </Answer>
                     )}
-
+                    {/* {console.info(item.checked)} */}
+                    {/* {console.info(
+                      toJS(
+                        MyClass.answerDueDateObj &&
+                          MyClass.answerDueDateObj[idx]
+                      )
+                    )} */}
+                    <DueDate type="main">
+                      {item.checked ? (
+                        <div>{MyClass.answerDueDateObj[item.id]}</div>
+                      ) : (
+                        <div>없음</div>
+                      )}
+                    </DueDate>
                     <TuteeAnswer
-                      type="headerBold"
                       active={
                         (MyClass.questionTotalList.length + 1) % 2 === 1
                           ? MyClass.questionTotalList.length >= idx + 2
@@ -494,6 +597,7 @@ const Question = styled.div`
 
   > a {
     text-decoration: none;
+    font-size: 16px;
   }
 
   @media (min-width: 0px) and (max-width: 767.98px) {
@@ -503,6 +607,9 @@ const Question = styled.div`
       height: 15px;
     }
     > div {
+      font-size: 12px;
+    }
+    > a {
       font-size: 12px;
     }
   }
@@ -515,6 +622,9 @@ const Question = styled.div`
     > div {
       font-size: 14px;
     }
+    > a {
+      font-size: 14px;
+    }
   }
 
   @media (min-width: 992px) and (max-width: 1299.98px) {
@@ -523,6 +633,9 @@ const Question = styled.div`
       height: 18px;
     }
     > div {
+      font-size: 15px;
+    }
+    > a {
       font-size: 15px;
     }
   }
@@ -535,7 +648,7 @@ const Answer = styled.div`
   align-items: center;
   // justify-content: ${(props) =>
     props.type === 'main' ? 'center' : 'flex-start'};
-  height: 40px;
+  // height: 40px;
   border-right: 1px solid #000;
   border-bottom: ${(props) => (props.active ? 'none' : '1px solid #707070')};
 
@@ -620,6 +733,7 @@ const TuteeAnswer = styled.div`
 const Main = styled.div`
   display: flex;
   flex-wrap: wrap;
+  // height: 50px;
 `;
 
 const SubMain = styled.div`
@@ -632,6 +746,7 @@ const ButtonBox = styled.div`
   justify-content: flex-end;
 `;
 const Button = styled.button`
+  cursor: pointer;
   width: ${(props) => (props.width ? props.width : '120')}px;
   height: 36px;
   background-color: rgba(235, 114, 82, 1);
@@ -705,5 +820,72 @@ const ResultBtn = styled.div`
   > div {
     // color: #fff;
     font-size: 14px;
+  }
+`;
+
+const DueDate = styled.div`
+  padding: 3px 8px;
+  //   width: ${(props) => (props.type === 'header' ? '20%' : '18%')};
+  width: 20%;
+  display: flex;
+  align-items: center;
+  // justify-content: ${(props) =>
+    props.type === 'main' ? 'center' : 'flex-start'};
+  // height: 40px;
+  border-right: 1px solid #000;
+  border-bottom: ${(props) => (props.active ? 'none' : '1px solid #707070')};
+
+  > div {
+    // border: 1px solid #707070;
+    // height: 100%;
+    // width: ${(props) => (props.type === 'main' ? '80px' : '')};
+    height: ${(props) => (props.type === 'main' ? '30px' : '')};
+    border-radius: ${(props) => (props.type === 'main' ? '15px' : '')};
+    background-color: ${(props) =>
+      props.type === 'main'
+        ? props.user === 'teacher'
+          ? props.state
+            ? 'rgba(255,0,0,0.6)'
+            : 'rgba(0, 85, 255, 0.6)'
+          : props.user === 'student'
+          ? props.state
+            ? 'rgba(255,0,0,0.6)'
+            : '#ccc'
+          : ''
+        : ''};
+    color: ${(props) =>
+      props.type === 'main' ? (props.state ? '#fff' : '#000') : '#fff'};
+    display: ${(props) => (props.type === 'main' ? 'flex' : 'block')};
+    justify-content: center;
+    align-items: center;
+    padding: ${(props) => (props.type === 'main' ? '3px 8px' : '')};
+    box-sizing: border-box;
+    font-size: ${(props) => (props.type === 'main' ? '14px' : '16px')};
+    cursor: ${(props) => (props.type === 'main' ? 'pointer' : 'initial')};
+  }
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    width: 25%;
+
+    > div {
+      // width: ${(props) => (props.type === 'main' ? '60px' : '')};
+      height: ${(props) => (props.type === 'main' ? '26px' : '')};
+      font-size: ${(props) => (props.type === 'main' ? '10px' : '12px')};
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    width: 23%;
+    > div {
+      // width: ${(props) => (props.type === 'main' ? '65px' : '')};
+      height: ${(props) => (props.type === 'main' ? '28px' : '')};
+      font-size: ${(props) => (props.type === 'main' ? '12px' : '14px')};
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
+    > div {
+      // width: ${(props) => (props.type === 'main' ? '78px' : '')};
+      height: ${(props) => (props.type === 'main' ? '30px' : '')};
+      font-size: ${(props) => (props.type === 'main' ? '13px' : '15px')};
+    }
   }
 `;

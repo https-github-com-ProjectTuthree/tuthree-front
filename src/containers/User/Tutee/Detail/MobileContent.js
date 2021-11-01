@@ -39,7 +39,7 @@ const reviewData = [
   },
 ];
 
-@inject('Tutee', 'Matching', 'Chatting')
+@inject('Tutee', 'Matching', 'Chatting', 'Auth')
 @observer
 class MobileContent extends Component {
   componentDidMount = async () => {
@@ -53,39 +53,42 @@ class MobileContent extends Component {
     Matching.isCheckBookmark = false;
   };
   render() {
-    const { Tutee, Matching, Chatting } = this.props;
+    const { Tutee, Matching, Chatting, Auth } = this.props;
     return (
       <Container>
         <Number>
-          <div>
-            <Button
-              // bg="#888"
-              width={70}
-              bd="1px solid #707070"
-              check={Matching.isCheckBookmark}
-              onClick={async () => {
-                console.info('click');
-                // Common.modalActive = true;
-                // window.location.href = '/chatting';
-                console.info(Matching.bookmarkId);
+          {Auth.loggedUserType === 'teacher' && (
+            <div>
+              <Button
+                // bg="#888"
+                width={70}
+                bd="1px solid #707070"
+                check={Matching.isCheckBookmark}
+                onClick={async () => {
+                  console.info('click');
+                  // Common.modalActive = true;
+                  // window.location.href = '/chatting';
+                  console.info(Matching.bookmarkId);
 
-                if (Matching.isCheckBookmark) {
-                  await Matching.checkBookmark('tutee');
-                  Matching.delBookmark(Matching.bookmarkId);
-                } else {
-                  Matching.setBookmark('tutee');
-                }
-              }}
-            >
-              {Matching.isCheckBookmark ? (
-                <img src={bookMarkDarkImg} />
-              ) : (
-                <img src={bookMarkWhiteImg} />
-              )}
+                  if (Matching.isCheckBookmark) {
+                    await Matching.checkBookmark('tutee');
+                    Matching.delBookmark(Matching.bookmarkId);
+                  } else {
+                    Matching.setBookmark('tutee');
+                  }
+                }}
+              >
+                {Matching.isCheckBookmark ? (
+                  <img src={bookMarkDarkImg} />
+                ) : (
+                  <img src={bookMarkWhiteImg} />
+                )}
 
-              <div>북마크</div>
-            </Button>
-          </div>
+                <div>북마크</div>
+              </Button>
+            </div>
+          )}
+
           <div>
             <View>
               <img src={viewImg} />
@@ -172,21 +175,23 @@ class MobileContent extends Component {
             </Content>
           </Section>
 
-          <ButtonBox>
-            <Button
-              bg="rgba(235, 114, 82, 0.7)"
-              color="#000"
-              onClick={() => {
-                console.info('click');
-                // Common.modalActive = true;
-                // window.location.href = '/chatting';
-                Chatting.createChatRoom();
-              }}
-            >
-              <img src={communicationImg} />
-              <div>1:1 문의</div>
-            </Button>
-          </ButtonBox>
+          {Auth.loggedUserType === 'teacher' && (
+            <ButtonBox>
+              <Button
+                bg="rgba(235, 114, 82, 0.7)"
+                color="#000"
+                onClick={() => {
+                  console.info('click');
+                  // Common.modalActive = true;
+                  // window.location.href = '/chatting';
+                  Chatting.createChatRoom();
+                }}
+              >
+                <img src={communicationImg} />
+                <div>1:1 문의</div>
+              </Button>
+            </ButtonBox>
+          )}
         </MainContent>
       </Container>
     );

@@ -12,6 +12,7 @@ import { toJS } from 'mobx';
 class Schedule extends Component {
   render() {
     const { MyClass } = this.props;
+    console.info(toJS(MyClass.scheduleDetailAry));
     return (
       <Container>
         <SearchBox>
@@ -71,8 +72,10 @@ class Schedule extends Component {
                     <img
                       src={modifyImg}
                       onClick={() => {
+                        console.info(item);
                         item.modify = !item.modify;
                         MyClass.scheduleValue = item.schedule;
+                        this.setState({ g: 3 });
                         console.info(toJS(MyClass.scheduleDetailAry));
                       }}
                     />

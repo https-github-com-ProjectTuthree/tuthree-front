@@ -384,22 +384,27 @@ class Calendar extends React.Component {
             <img onClick={this.nextMonth} src={nextImg} />
           </DateItem>
           <ButtonBox>
-            <Button
-              width={100}
-              onClick={() => {
-                window.open(VIDEO_URL);
-              }}
-            >
-              <div>화상강의</div>
-            </Button>
+            {Auth.loggedUserType !== 'parent' && (
+              <Button
+                width={100}
+                onClick={() => {
+                  window.open(VIDEO_URL);
+                }}
+              >
+                <div>화상강의</div>
+              </Button>
+            )}
 
-            <Button
-              width={100}
-              last={true}
-              onClick={() => (Common.modalActive = true)}
-            >
-              <div>일정생성</div>
-            </Button>
+            {Auth.loggedUserType !== 'parent' && (
+              <Button
+                width={100}
+                last={true}
+                onClick={() => (Common.modalActive = true)}
+              >
+                <div>일정생성</div>
+              </Button>
+            )}
+
             {MyClass.selectModalActive === true && (
               <Layer>
                 <div>

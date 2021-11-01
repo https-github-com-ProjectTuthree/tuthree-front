@@ -1,12 +1,11 @@
 import React, { Component, useRef } from 'react';
 import { inject, observer, Provider } from 'mobx-react';
 import styled from 'styled-components';
-import defaultImg from '../../../static/images/Common/defaultUser.png';
-import Textarea from '../../../components/TextareaContainer';
-import InfoWriting from './InfoWriting';
-import Info from './Info';
+import defaultImg from '../../../../static/images/Common/defaultUser.png';
+import Textarea from '../../../../components/TextareaContainer';
+
 import { toJS } from 'mobx';
-import { config } from '../../../firebase-config';
+import { config } from '../../../../firebase-config';
 
 // import * as Stomp from '@stomp/stompjs';
 import * as Stomp from 'stompjs';
@@ -43,173 +42,7 @@ let stompClient = null;
 //   console.log(payload.notification.body);
 // });
 
-const userList = [
-  {
-    id: 1,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-
-  {
-    id: 1,
-    name: 'user1',
-    content: 'sd',
-    writeDt: '2021-09-29',
-  },
-
-  {
-    id: 1,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-  },
-];
-
-const chatList = [
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdddddddddddddddddddddddddddddddddddddddddd',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'you',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'you',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content:
-      'sdfsdfdsfdsfsdsdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdsssssssssssssssssssssssssssdfsdfdsfdsfsdfdssssssssssssssssssssssssssf',
-    writeDt: '2021-09-29',
-    type: 'you',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content:
-      'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'me',
-  },
-  {
-    id: 4,
-    name: 'user1',
-    content: 'sdfsdfdsfdsfsdf',
-    writeDt: '2021-09-29',
-    type: 'you',
-  },
-];
-
-@inject('Auth', 'Common', 'Test2')
+@inject('Auth', 'Common', 'Chatting', 'AdminAuth', 'AdminChatting')
 @observer
 class Content extends Component {
   constructor(props) {
@@ -228,13 +61,9 @@ class Content extends Component {
     Common.modalActive = true;
   };
   componentDidMount = async () => {
-    const { Auth, Test2 } = this.props;
-    console.info(Test2.studentId);
-    await Test2.getDetailClass();
-    await Test2.getChatUserList();
-    if (Auth.loggedUserType === 'teacher') {
-      await Test2.checkInfoWriting();
-    }
+    const { Auth, Chatting, AdminChatting } = this.props;
+
+    await AdminChatting.getChatUserList();
 
     this.connect();
 
@@ -249,11 +78,17 @@ class Content extends Component {
     // <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.2.0/stomp.min.js"></script>
   };
 
+  componentWillUnmount = () => {
+    const { AdminChatting } = this.props;
+    AdminChatting.otherName = '';
+    AdminChatting.chatAry = [];
+    AdminChatting.enrollmentState = 1;
+  };
   connect = async () => {
-    const { Test2, Auth } = this.props;
+    const { Chatting, Auth, AdminAuth, AdminChatting } = this.props;
 
     console.info('connect 중 ...');
-    var socket = new SockJS('http://221.141.233.185:8088/tuthree-websocket');
+    var socket = new SockJS('http://3.34.125.3:8088/tuthree-websocket');
     stompClient = Stomp.over(socket);
     // stompClient = socket;
     // stompClient = new Stomp.Client
@@ -262,12 +97,12 @@ class Content extends Component {
       console.log('Connected: ' + frame);
       // stompClient.subscribe('/topic/messages', function (message) {
       await stompClient.subscribe(
-        `/topic/messages.${Test2.roomId}`,
+        `/topic/messages.${AdminChatting.roomId}`,
         async (message) => {
           // showMessage(decodeURI(JSON.parse(message.body).content));
           console.info(decodeURI(JSON.parse(message.body).content));
-          // await Test2.getChatList(Test2.roomId);
-          await Test2.getChatUserList();
+          await AdminChatting.getChatUserList();
+          await AdminChatting.getChatList(AdminChatting.roomId);
           console.info(this.scrollToBottom);
           this.scrollToBottom();
         }
@@ -279,19 +114,19 @@ class Content extends Component {
   };
 
   sendMessage() {
-    const { Test2, Auth } = this.props;
+    const { Chatting, Auth, AdminAuth, AdminChatting } = this.props;
     console.log('sending message');
-    Test2.sendFcm();
+    AdminChatting.sendFcm();
     // stompClient.send("/ws/message", {}, JSON.stringify({'content': $("#message").val()}));
     // stompClient.send("/ws/message", {}, JSON.stringify({'content': encodeURI($("#message").val())}));
     stompClient.send(
       '/ws/message',
       {},
       JSON.stringify({
-        room: { id: Test2.roomId },
-        name: encodeURI(Auth.loggedUserName),
-        userId: Auth.loggedUserId,
-        content: encodeURI(Test2.chatMsg),
+        room: { id: AdminChatting.roomId },
+        name: encodeURI(AdminAuth.loggedAdminName),
+        userId: AdminAuth.loggedAdminId,
+        content: encodeURI('hihi'),
       })
     );
   }
@@ -305,11 +140,12 @@ class Content extends Component {
   };
 
   render() {
-    const { Common, Auth, Test2 } = this.props;
-    console.info(config);
-    console.info(Common.modalActive);
-    console.info(Test2.enrollmentState);
-    console.info(Test2.writingState);
+    const { Common, Auth, Chatting, AdminAuth, AdminChatting } = this.props;
+    console.info(AdminAuth.token);
+    console.info(AdminAuth.loggedAdminId);
+    console.info(AdminAuth.loggedAdminType);
+    console.info(AdminAuth.loggedAdminName);
+
     year = today.getFullYear();
     month = ('0' + (today.getMonth() + 1)).slice(-2);
     day = ('0' + today.getDate()).slice(-2);
@@ -317,210 +153,164 @@ class Content extends Component {
     console.info(date);
     return (
       <Container state={Common.modalActive}>
-        {Common.modalActive === true && Common.modalState === 1 && (
-          <Layer>
-            <div>
-              <InfoWriting
-                // width={width}
-                open={this.openModal}
-                close={this.closeModal}
-              />
-            </div>
-          </Layer>
-        )}
+        <ChildContainer>
+          <ChatList>
+            <Label>
+              <div>Chatting</div>
+            </Label>
+            <UserList>
+              {AdminChatting.chatUserAry &&
+                AdminChatting.chatUserAry.map((item, idx) => {
+                  console.info(toJS(item));
+                  return (
+                    <UserListItem
+                      onClick={async () => {
+                        // localStorage.removeItem('otherPersonId');
+                        // Chatting.enrollmentState = 1;
+                        // if (Auth.loggedUserType === 'teacher') {
+                        //   Chatting.studentId = item.chatList.senderId;
+                        //   localStorage.setItem(
+                        //     'otherPersonId',
+                        //     item.chatList.senderId
+                        //   );
+                        // } else {
+                        //   Chatting.teacherId = item.chatList.senderId;
+                        //   localStorage.setItem(
+                        //     'otherPersonId',
+                        //     item.chatList.senderId
+                        //   );
+                        // }
+                        AdminChatting.otherName = item.chatList.name;
+                        AdminChatting.roomId = item.roomId;
 
-        {Common.modalActive === true && Common.modalState === 2 && (
-          <Layer>
-            <div>
-              <Info
-                // width={width}
-                open={this.openModal}
-                close={this.closeModal}
-              />
-            </div>
-          </Layer>
-        )}
-
-        <ChatList>
-          <Label>
-            <div>Chatting</div>
-          </Label>
-          <UserList>
-            {Test2.chatUserAry &&
-              Test2.chatUserAry.map((item, idx) => {
-                console.info(toJS(item));
-                return (
-                  <UserListItem
-                    onClick={() => {
-                      if (Auth.loggedUserType === 'teacher') {
-                        Test2.studentId = item.chatList.senderId;
-                      } else {
-                        Test2.teacherId = item.chatList.senderId;
-                      }
-                      Test2.otherName = item.chatList.name;
-                      Test2.roomId = item.roomId;
-                      Test2.getChatList(item.roomId);
-                      this.connect();
-                    }}
-                  >
-                    <ImgBox width={55} height={55} mr={10}>
-                      <div>
-                        {/* <div>IMG</div> */}
-                        <img src={defaultImg} />
-                      </div>
-                    </ImgBox>
-                    <UserItem>
-                      <UserLabel>
-                        <UserName>{item.chatList.name}</UserName>
-                        <UserWriteDt>
-                          {date ===
-                          item.chatList.date.substring(
-                            0,
-                            item.chatList.date.indexOf(' ')
-                          )
-                            ? item.chatList.date.substring(
-                                item.chatList.date.indexOf(' '),
-                                item.chatList.date.lastIndexOf(':')
-                              )
-                            : item.chatList.date.substring(
-                                0,
-                                item.chatList.date.lastIndexOf(':')
-                              )}
-                          {/* {item.chatList.date.substring(
-                            0,
-                            item.chatList.date.lastIndexOf(':')
-                          )} */}
-                          {/* {item.chatList.date.substring(
-                            0,
-                            item.chatList.date.indexOf(' ')
-                          )} */}
-                          {date ===
+                        await AdminChatting.getChatList(item.roomId);
+                        this.connect();
+                      }}
+                    >
+                      <ImgBox width={55} height={55} mr={10}>
+                        <div>
+                          {/* <div>IMG</div> */}
+                          <img src={defaultImg} />
+                        </div>
+                      </ImgBox>
+                      <UserItem>
+                        <UserLabel>
+                          <UserName>{item.chatList.name}</UserName>
+                          <UserWriteDt>
+                            {date ===
                             item.chatList.date.substring(
                               0,
                               item.chatList.date.indexOf(' ')
-                            )}
-                        </UserWriteDt>
-                      </UserLabel>
-                      <UserContent>{item.chatList.chat}</UserContent>
-                    </UserItem>
-                  </UserListItem>
-                );
-              })}
-          </UserList>
-          <ButtonBox>
-            {Auth.loggedUserType === 'teacher' && Test2.writingState === 1 && (
-              <CtlBtn
-                state={Test2.enrollmentState === 1}
-                onClick={() => {
-                  if (Test2.enrollmentState === 1) {
-                    window.scrollTo(0, 0);
-                    Common.modalActive = true;
-                    Common.modalState = 1;
-                  }
-                }}
-              >
-                <div>과외 등록하기</div>
-              </CtlBtn>
-            )}
-            {Auth.loggedUserType === 'teacher' && Test2.writingState === 2 && (
-              <CtlBtn
-                state={Test2.enrollmentState === 1}
-                onClick={async () => {
-                  if (Test2.enrollmentState === 1) {
-                    await Test2.getTutoringInfo();
-                    window.scrollTo(0, 0);
-                    Common.modalActive = true;
-                    Common.modalState = 1;
-                  }
-                }}
-              >
-                {Test2.enrollmentState === 2 ? (
-                  <div>과외 등록하기</div>
-                ) : (
-                  <div>과외 정보 수정하기</div>
-                )}
-              </CtlBtn>
-            )}
-
-            {Auth.loggedUserType === 'student' && (
-              <CtlBtn
-                state={Test2.enrollmentState === 1}
-                onClick={async () => {
-                  if (Test2.enrollmentState === 1) {
-                    await Test2.getTutoringInfo();
-                    window.scrollTo(0, 0);
-                    // Common.modalActive = true;
-                    // Common.modalState = 2;
-                  }
-                }}
-              >
-                <div>과외 정보 조회하기</div>
-              </CtlBtn>
-            )}
-          </ButtonBox>
-        </ChatList>
-        <ChatContainer>
-          <ChatHeader>{Test2.otherName}</ChatHeader>
-          <ChatMain id="main" ref={messageBox}>
-            {Test2.chatAry &&
-              Test2.chatAry.map((item, idx) => {
-                return (
-                  <ChatListItem type={item.senderId === Auth.loggedUserId}>
-                    <ImgBox
-                      width={55}
-                      height={55}
-                      mr={10}
-                      type={item.senderId === Auth.loggedUserId}
-                    >
-                      <div>
-                        {/* <div>IMG</div> */}
-                        <img src={defaultImg} />
-                      </div>
-                    </ImgBox>
-                    <ChatItem type={item.senderId === Auth.loggedUserId}>
-                      <ChatLabel type={item.senderId === Auth.loggedUserId}>
-                        <ChatName type={item.senderId === Auth.loggedUserId}>
-                          {item.senderName}
-                        </ChatName>
-                        <ChatContent type={item.senderId === Auth.loggedUserId}>
-                          <div></div>
-                          {item.chat}
-                        </ChatContent>
-                      </ChatLabel>
-                      <ChatWriteDt type={item.senderId === Auth.loggedUserId}>
-                        {date === item.date.substring(0, item.date.indexOf(' '))
-                          ? item.date.substring(
-                              item.date.indexOf(' '),
-                              item.date.lastIndexOf(':')
                             )
-                          : item.date.substring(0, item.date.lastIndexOf(':'))}
-                      </ChatWriteDt>
-                    </ChatItem>
-                  </ChatListItem>
-                );
-              })}
-          </ChatMain>
-          <ChatWritingBox>
-            <Textarea
-              mxh={40}
-              mih={40}
-              placeholder={`메시지를 입력하세요`}
-              type="chat_msg"
-            />
-            <Button
-              onClick={async () => {
-                await this.sendMessage();
-                await Test2.sendMessage();
-                // let objDiv = document.getElementById('main');
+                              ? item.chatList.date.substring(
+                                  item.chatList.date.indexOf(' '),
+                                  item.chatList.date.lastIndexOf(':')
+                                )
+                              : item.chatList.date.substring(
+                                  0,
+                                  item.chatList.date.lastIndexOf(':')
+                                )}
+                            {/* {item.chatList.date.substring(
+                            0,
+                            item.chatList.date.lastIndexOf(':')
+                          )} */}
+                            {/* {item.chatList.date.substring(
+                            0,
+                            item.chatList.date.indexOf(' ')
+                          )} */}
+                            {date ===
+                              item.chatList.date.substring(
+                                0,
+                                item.chatList.date.indexOf(' ')
+                              )}
+                          </UserWriteDt>
+                        </UserLabel>
+                        <UserContent>{item.chatList.chat}</UserContent>
+                      </UserItem>
+                    </UserListItem>
+                  );
+                })}
+            </UserList>
+          </ChatList>
+          <ChatContainer>
+            <ChatHeader>{AdminChatting.otherName}</ChatHeader>
+            <ChatMain id="main" ref={messageBox}>
+              {AdminChatting.chatAry &&
+                AdminChatting.chatAry.map((item, idx) => {
+                  return (
+                    <ChatListItem
+                      type={item.senderId === AdminAuth.loggedAdminId}
+                    >
+                      <ImgBox
+                        width={55}
+                        height={55}
+                        mr={10}
+                        type={item.senderId === AdminAuth.loggedAdminId}
+                      >
+                        <div>
+                          {/* <div>IMG</div> */}
+                          <img src={defaultImg} />
+                        </div>
+                      </ImgBox>
+                      <ChatItem
+                        type={item.senderId === AdminAuth.loggedAdminId}
+                      >
+                        <ChatLabel
+                          type={item.senderId === AdminAuth.loggedAdminId}
+                        >
+                          <ChatName
+                            type={item.senderId === AdminAuth.loggedAdminId}
+                          >
+                            {item.senderName}
+                          </ChatName>
+                          <ChatContent
+                            type={item.senderId === AdminAuth.loggedAdminId}
+                          >
+                            <div></div>
+                            {item.chat}
+                          </ChatContent>
+                        </ChatLabel>
+                        <ChatWriteDt
+                          type={item.senderId === AdminAuth.loggedAdminId}
+                        >
+                          {date ===
+                          item.date.substring(0, item.date.indexOf(' '))
+                            ? item.date.substring(
+                                item.date.indexOf(' '),
+                                item.date.lastIndexOf(':')
+                              )
+                            : item.date.substring(
+                                0,
+                                item.date.lastIndexOf(':')
+                              )}
+                        </ChatWriteDt>
+                      </ChatItem>
+                    </ChatListItem>
+                  );
+                })}
+            </ChatMain>
+            <ChatWritingBox>
+              <Textarea
+                mxh={40}
+                mih={40}
+                placeholder={`메시지를 입력하세요`}
+                type="admin_chat_msg"
+              />
+              <Button
+                onClick={async () => {
+                  await this.sendMessage();
+                  await AdminChatting.sendMessage();
+                  // let objDiv = document.getElementById('main');
 
-                // objDiv.scrollTop = objDiv.scrollHeight;
-                this.scrollToBottom();
-              }}
-            >
-              <div>전송</div>
-            </Button>
-          </ChatWritingBox>
-        </ChatContainer>
+                  // objDiv.scrollTop = objDiv.scrollHeight;
+                  this.scrollToBottom();
+                }}
+              >
+                <div>전송</div>
+              </Button>
+            </ChatWritingBox>
+          </ChatContainer>
+        </ChildContainer>
       </Container>
     );
   }
@@ -531,6 +321,19 @@ export default Content;
 const Container = styled.div`
   margin: 100px 0;
   width: 100%;
+  // height: 800px;
+  //   height: ${(props) => (props.state ? '59vh' : '100vh')};
+  //   border: 2px solid #000;
+  //   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  // position: fixed;
+`;
+const ChildContainer = styled.div`
+  //   margin: 100px 0;
+  width: 90%;
   // height: 800px;
   height: ${(props) => (props.state ? '59vh' : '100vh')};
   border: 2px solid #000;
@@ -654,6 +457,7 @@ const UserItem = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 const UserLabel = styled.div`
   width: 100%;

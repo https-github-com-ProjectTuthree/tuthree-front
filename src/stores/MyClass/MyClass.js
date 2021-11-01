@@ -28,6 +28,7 @@ class MyClass {
   @observable studentName = '';
   @observable teacherId = '';
   @observable studentId = '';
+  @observable parentState = 1;
 
   @observable scheduleValue = '';
   @observable scheduleAry = [];
@@ -45,6 +46,7 @@ class MyClass {
   @observable selectedReportDate = '';
   @observable selectModalActive = false;
 
+  @observable today = '';
   @observable totalQuestion = 0;
   @observable questionTotalList = [];
   @observable questionAry = [];
@@ -53,6 +55,9 @@ class MyClass {
   @observable isExistAnswer = false;
   @observable tuteeTotalQuestion = 0;
   @observable answerAry = [];
+  @observable answerDueDateObj = {};
+  @observable answerDueDate = '';
+  @observable answerDueDateMoment = '';
   @observable tuteeAnswerModalActive = false;
   @observable markingTotalQuestion = 0;
   @observable markingResultTotalObj = {};
@@ -221,6 +226,7 @@ class MyClass {
 
   @action getClass = async (id) => {
     console.info(id);
+    this.classAry = [];
     if (!id) {
       window.location.href = '/';
     }
@@ -358,6 +364,7 @@ class MyClass {
     console.info(this.studentId);
     console.info(this.teacherId);
     console.info(this.selectedDate);
+    this.scheduleDetailAry = [];
 
     const req = {
       params: {
@@ -521,7 +528,7 @@ class MyClass {
         console.info(e.response);
       });
     console.info(toJS(this.reportDetailAry));
-    if (this.reportDetailAry) {
+    if (this.reportDetailAry.length !== 0) {
       // if (this.reportDetailAry.length !== 0) {
       console.info('aaaaaaaaaaaaaaaaaaaa');
       this.reportWritingState = 2;
@@ -549,6 +556,7 @@ class MyClass {
     console.info(this.teacherId);
     this.markingStateAry = [];
     this.markingStateObj = {};
+    this.answerDueDateObj = {};
     this.getTuteeAnswerState = false;
     const req = {
       params: {
@@ -645,6 +653,17 @@ class MyClass {
     console.info(this.totalQuestion);
     console.info(toJS(this.questionAry));
     console.info(this.questionPostId);
+    console.info(this.answerDueDate);
+
+    if (!this.answerDueDate) {
+      alert('마감일을 선택해주세요.');
+      return;
+    }
+    if (!this.totalQuestion) {
+      alert('총 문제수를 입력해주세요.');
+      return;
+    }
+
     let answerAry = [];
     this.questionAry &&
       this.questionAry.map((item, idx) => {
@@ -665,6 +684,7 @@ class MyClass {
       },
       data: {
         prob: parseInt(this.totalQuestion),
+        dueDate: this.answerDueDate,
         problem: this.questionAry,
       },
     };
@@ -705,6 +725,9 @@ class MyClass {
         isExist = true;
         if (res.data.success) {
           this.tuteeTotalQuestion = res.data.data.prob;
+          // this.answerDueDateObj.push({ [id]: res.data.data.dueDate });
+          this.answerDueDateObj[id] = res.data.data.dueDate;
+          // this.markingTotalScoreObj[idx] = this.markingCorrect;
           this.answerAry = await res.data.data.problem;
           this.answerAry.map((item, idx) => {
             item.ans = '';
@@ -783,7 +806,7 @@ class MyClass {
     const req = {
       id: id,
       headers: {
-        Authorization: Auth.Authorization,
+        Authorization: Auth.token,
       },
     };
     console.info(req);
@@ -946,8 +969,38 @@ class MyClass {
       .then(async (res) => {
         console.info(res);
         if (res.data.success) {
-          // this.childClassAry =
+          this.childClassAry = await res.data.data;
         }
+      })
+      .catch((e) => {
+        console.info(e);
+        console.info(e.response);
+      });
+  };
+
+  @action endClass = async (teacherId, studentId) => {
+    console.info(teacherId);
+    console.info(studentId);
+    console.info(Auth.token);
+    const req = {
+      params: {
+        teacherId: teacherId,
+        studentId: studentId,
+      },
+      headers: {
+        Authorization: Auth.token,
+      },
+    };
+
+    await ClassAPI.endClass(req)
+      .then(async (res) => {
+        console.info(res);
+        alert('수업이 종료되었습니다');
+        await this.getClass(Auth.loggedUserId);
+        this.moreState = -1;
+        // if (res.data.success) {
+
+        // }
       })
       .catch((e) => {
         console.info(e);

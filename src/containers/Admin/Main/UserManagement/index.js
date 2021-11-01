@@ -5,9 +5,15 @@ import Content from './Content';
 import DetailContent from './DetailContent';
 import AdminUser from '../../../../stores/Admin/User';
 
-@inject('AdminUser')
+@inject('AdminUser', 'AdminAuth')
 @observer
 class index extends Component {
+  componentDidMount = () => {
+    // const { AdminAuth } = this.props;
+    // AdminAuth.token = localStorage.getItem('adminToken');
+    // console.info('ddd');
+    // console.info(AdminAuth.token);
+  };
   render() {
     return <>{AdminUser.state === 0 ? <Content /> : <DetailContent />}</>;
   }

@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 import { Link as Connection } from 'react-router-dom';
 
 import personImg from '../static/images/person.png';
+import chattingImg from '../static/images//Common/chatting.png';
 import Community from '../stores/Community/Community';
 import Auth from '../stores/Account/Auth';
 import Tutor from '../stores/Matching/Tutor';
@@ -66,17 +67,36 @@ class Nav extends Component {
               style={{ width: '25%', justifyContent: 'right', float: 'right' }}
             >
               {Auth.token ? (
-                <div
-                  style={{ width: '20%', marginLeft: '0px', cursor: 'pointer' }}
-                  onClick={() => {
-                    console.info(this.state.token);
-                    console.info('is_profile');
-                    this.setState({ is_profile: !this.state.is_profile });
-                    console.info(this.state.is_profile);
-                  }}
-                >
-                  <Img src={personImg} alt="마이페이지" />
-                </div>
+                <>
+                  <Link
+                    to="/chatting"
+                    style={{
+                      width: '20%',
+                      marginRight: '10px',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      localStorage.removeItem('otherPersonId');
+                    }}
+                  >
+                    <Img src={chattingImg} alt="채팅" />
+                  </Link>
+                  <div
+                    style={{
+                      width: '20%',
+                      marginLeft: '0px',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      console.info(this.state.token);
+                      console.info('is_profile');
+                      this.setState({ is_profile: !this.state.is_profile });
+                      console.info(this.state.is_profile);
+                    }}
+                  >
+                    <Img src={personImg} alt="마이페이지" />
+                  </div>
+                </>
               ) : (
                 <Link
                   to="/login"

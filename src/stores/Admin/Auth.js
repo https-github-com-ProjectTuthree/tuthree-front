@@ -8,6 +8,9 @@ class Auth {
   @observable adminId = '';
   @observable adminPassword = '';
   @observable token = '';
+  @observable loggedAdminId = '';
+  @observable loggedAdminType = '';
+  @observable loggedAdminName = '';
 
   @action onUserHandler = (e, type) => {
     switch (type) {
@@ -24,20 +27,27 @@ class Auth {
     }
   };
 
-  @action adminLogin = () => {
+  @action adminLogin = async () => {
     const req = {
       data: {
         id: this.adminId,
         pwd: this.adminPassword,
       },
     };
-    AccountAPI.adminLogin(req)
-      .then((res) => {
+    await AccountAPI.adminLogin(req)
+      .then(async (res) => {
         console.info(res);
         if (res.data.success) {
           alert('관리자로 로그인에 성공하였습니다');
           this.token = res.headers.authorization;
+          this.loggedAdminId = await res.data.data.id;
+          this.loggedAdminType = await res.data.data.grade;
+          this.loggedAdminName = await res.data.data.name;
+
           localStorage.setItem('adminToken', res.headers.authorization);
+          localStorage.setItem('adminId', res.data.data.id);
+          localStorage.setItem('adminType', res.data.data.grade);
+          localStorage.setItem('adminName', res.data.data.name);
           window.location.href = '/admin/main';
 
           console.info(this.token);

@@ -34,7 +34,7 @@ class SubContent extends Component {
   };
 
   render() {
-    const { Matching, Chatting } = this.props;
+    const { Matching, Chatting, Auth } = this.props;
     // console.info(Matching.isCheckBookmark);
     return (
       <>
@@ -106,47 +106,49 @@ class SubContent extends Component {
               <Content>{Tutor.tutorDetailAry.cost}</Content>
             </SubMain>
           </Main>
-          <ButtonBox>
-            <Button
-              // bg="#888"
-              bd="1px solid #707070"
-              check={Matching.isCheckBookmark}
-              onClick={async () => {
-                console.info('click');
-                // Common.modalActive = true;
-                // window.location.href = '/chatting';
-                console.info(Matching.bookmarkId);
+          {Auth.loggedUserType !== 'teacher' && (
+            <ButtonBox>
+              <Button
+                // bg="#888"
+                bd="1px solid #707070"
+                check={Matching.isCheckBookmark}
+                onClick={async () => {
+                  console.info('click');
+                  // Common.modalActive = true;
+                  // window.location.href = '/chatting';
+                  console.info(Matching.bookmarkId);
 
-                if (Matching.isCheckBookmark) {
-                  await Matching.checkBookmark('tutor');
-                  Matching.delBookmark(Matching.bookmarkId);
-                } else {
-                  Matching.setBookmark('tutor');
-                }
-              }}
-            >
-              {Matching.isCheckBookmark ? (
-                <img src={bookMarkDarkImg} />
-              ) : (
-                <img src={bookMarkWhiteImg} />
-              )}
+                  if (Matching.isCheckBookmark) {
+                    await Matching.checkBookmark('tutor');
+                    Matching.delBookmark(Matching.bookmarkId);
+                  } else {
+                    Matching.setBookmark('tutor');
+                  }
+                }}
+              >
+                {Matching.isCheckBookmark ? (
+                  <img src={bookMarkDarkImg} />
+                ) : (
+                  <img src={bookMarkWhiteImg} />
+                )}
 
-              <div>북마크</div>
-            </Button>
-            <Button
-              bg="rgba(235, 114, 82, 0.7)"
-              onClick={() => {
-                console.info('click');
-                // Common.modalActive = true;
-                // window.location.href = '/chatting';
-                Chatting.createChatRoom();
-              }}
-              color="#000"
-            >
-              <img src={communicationImg} />
-              <div>1:1 문의</div>
-            </Button>
-          </ButtonBox>
+                <div>북마크</div>
+              </Button>
+              <Button
+                bg="rgba(235, 114, 82, 0.7)"
+                onClick={() => {
+                  console.info('click');
+                  // Common.modalActive = true;
+                  // window.location.href = '/chatting';
+                  Chatting.createChatRoom();
+                }}
+                color="#000"
+              >
+                <img src={communicationImg} />
+                <div>1:1 문의</div>
+              </Button>
+            </ButtonBox>
+          )}
         </Container>
         {/* {Common.modalActive === true && (
           <Modal

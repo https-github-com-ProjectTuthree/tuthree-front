@@ -12,6 +12,7 @@ import MyClass from './MyClass/MyClass';
 import AdminAuth from './Admin/Auth';
 import AdminUser from './Admin/User';
 import AdminCommunity from './Admin/Community';
+import AdminChatting from './Admin/Chatting';
 
 export default {
   Auth,
@@ -27,5 +28,6 @@ export default {
   AdminAuth,
   AdminUser,
   AdminCommunity,
+  AdminChatting,
   Test2,
 };

@@ -156,3 +156,12 @@ export function getChildClassList(req) {
     headers: req.headers ? req.headers : null,
   });
 }
+
+export function endClass(req) {
+  return axios({
+    method: 'GET',
+    url: `${ROOT_URL}/room/close`,
+    params: req.params ? req.params : null,
+    headers: req.headers ? req.headers : null,
+  });
+}

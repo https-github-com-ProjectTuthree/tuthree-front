@@ -17,6 +17,7 @@ class ClassCard extends Component {
       subject,
       id,
       teacherId,
+      studentId,
       MyClass,
       type,
       Auth,
@@ -71,7 +72,14 @@ class ClassCard extends Component {
                   )}
 
                   <div>
-                    <Button>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        console.info('end');
+                        MyClass.endClass(teacherId, studentId);
+                      }}
+                    >
                       <div>수업종료</div>
                     </Button>
                   </div>
@@ -158,12 +166,13 @@ class ClassCard extends Component {
                       </Button>
                     </div>
                   )}
-
-                  <div>
-                    <Button>
-                      <div>수업종료</div>
-                    </Button>
-                  </div>
+                  {Auth.loggedUserType !== 'parent' && (
+                    <div>
+                      <Button>
+                        <div>수업종료</div>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </Menu>
             )}
@@ -174,15 +183,11 @@ class ClassCard extends Component {
             <Content>
               <Box>
                 {' '}
-                {Auth.loggedUserType === 'teacher' ? (
-                  <Label ml={5} fw="bold" fs={18}>
-                    {studentName}
-                  </Label>
-                ) : (
-                  <Label ml={5} fw="bold" fs={18}>
-                    {teacherName}
-                  </Label>
-                )}
+                <Label ml={5} fw="bold" fs={18}>
+                  {studentName}
+                  <br />
+                  <span>({teacherName}선생님)</span>
+                </Label>
               </Box>
 
               <Box>
@@ -319,17 +324,29 @@ const Label = styled.div`
     margin-right: ${(props) => (props.mr ? props.mr : '5')}px;
     margin-left: ${(props) => (props.ml ? props.ml : '5')}px;
   }
-
+  > span {
+    font-size: 14px;
+    color: blue;
+  }
   @media (min-width: 0px) and (max-width: 767.98px) {
     // margin-bottom: 5px;
     font-size: ${(props) => (props.fs ? props.fs - 3 : '13')}px;
+    > span {
+      font-size: 11px;
+    }
   }
   @media (min-width: 768px) and (max-width: 991.98px) {
     font-size: ${(props) => (props.fs ? props.fs - 2 : '14')}px;
+    > span {
+      font-size: 12px;
+    }
   }
 
   @media (min-width: 992px) and (max-width: 1299.98px) {
     font-size: ${(props) => (props.fs ? props.fs - 1 : '15')}px;
+    > span {
+      font-size: 13px;
+    }
   }
 `;
 

@@ -3,6 +3,10 @@ import styled, { keyframes } from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import MultipleToggleButton from '../../../../../components/MultipleToggleButton';
 import { toJS } from 'mobx';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import ko from 'date-fns/locale/ko';
+registerLocale('ko', ko);
+const _ = require('lodash');
 
 @inject('Common', 'MyClass')
 @observer
@@ -15,6 +19,45 @@ class AnswerWriting extends Component {
     // console.info()
     MyClass.questionAry = [];
   };
+
+  onChange = (date) => {
+    const { MyClass } = this.props;
+    // Day.js object
+    console.info(MyClass.answerDueDate);
+    // console.log(date);
+    console.info(date);
+    // console.info(moment(date).valueOf());
+    // console.info(moment.utc(moment(date).format()));
+    // console.info(new moment(;))
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+
+    // let temp = new Date().to
+    // console.info(date.format());
+    // console.info(`${year}-${month}-${day}`);
+    // date = date.dateFormat('yyyy-MM-dd');
+    // MyClass.answerDueDate = date;
+    // MyClass.answerDueDate = moment.utc(moment(date).format());
+    MyClass.answerDueDate = `${year}-${month}-${day}`;
+    MyClass.answerDueDateMoment = date;
+    console.info(MyClass.answerDueDateMoment);
+    MyClass.getDetailSchedule();
+    MyClass.getDetailReport();
+
+    // if (MyClass.reportDetailAry) {
+    //   console.info('aa');
+    // } else {
+    //   console.info('bb');
+    // }
+
+    // to normal Date object
+    // console.log(date.toDate());
+  };
+
   render() {
     const { open, close, header, children, width, Common, MyClass } =
       this.props;
@@ -45,8 +88,26 @@ class AnswerWriting extends Component {
                 <Container>
                   <Header>답안지 입력</Header>
                   <Main>
+                    <DueDate>
+                      <Label type="header">1. 마감일을 선택해주세요. </Label>
+                      <Content type="header">
+                        <DateContainer
+                          selected={MyClass.answerDueDateMoment}
+                          // onChange={(value) =>
+                          //   this.onChange(
+                          //     format(value, 'yyyy-MM-dd', {
+                          //       awareOfUnicodeTokens: true,
+                          //     })
+                          //   )
+                          // }
+                          onChange={(date) => this.onChange(date)}
+                          locale="ko"
+                          dateFormat="yyyy-MM-dd"
+                        />
+                      </Content>
+                    </DueDate>
                     <TotalCount>
-                      <Label type="header">1. 총 문제수를 입력해주세요.</Label>
+                      <Label type="header">2. 총문제수를 입력해주세요.</Label>
                       <Content type="header">
                         <Input
                           ml={15}
@@ -65,7 +126,7 @@ class AnswerWriting extends Component {
                     </TotalCount>
 
                     <Answer>
-                      <Label>2. 문제에 대한 답을 입력해주세요.</Label>
+                      <Label>3. 문제에 대한 답을 입력해주세요.</Label>
                       <Content count={MyClass.totalQuestion}>
                         {MyClass.questionAry &&
                           MyClass.questionAry.map((item, idx) => {
@@ -218,8 +279,26 @@ class AnswerWriting extends Component {
                 <Container>
                   <Header>답안지 입력</Header>
                   <Main>
+                    <DueDate>
+                      <Label type="header">1. 마감일을 선택해주세요. </Label>
+                      <Content type="header">
+                        <DateContainer
+                          selected={MyClass.answerDueDateMoment}
+                          // onChange={(value) =>
+                          //   this.onChange(
+                          //     format(value, 'yyyy-MM-dd', {
+                          //       awareOfUnicodeTokens: true,
+                          //     })
+                          //   )
+                          // }
+                          onChange={(date) => this.onChange(date)}
+                          locale="ko"
+                          dateFormat="yyyy-MM-dd"
+                        />
+                      </Content>
+                    </DueDate>
                     <TotalCount>
-                      <Label type="header">1. 총 문제수를 입력해주세요.</Label>
+                      <Label type="header">2. 총문제수를 입력해주세요.</Label>
                       <Content type="header">
                         <Input
                           ml={15}
@@ -238,7 +317,7 @@ class AnswerWriting extends Component {
                     </TotalCount>
 
                     <Answer>
-                      <Label>2. 문제에 대한 답을 입력해주세요.</Label>
+                      <Label>3. 문제에 대한 답을 입력해주세요.</Label>
                       <Content count={MyClass.totalQuestion}>
                         {MyClass.questionAry &&
                           MyClass.questionAry.map((item, idx) => {
@@ -474,7 +553,7 @@ const Main = styled.div`
 
   flex-direction: column;
 
-  justify-content: center;
+  // justify-content: center;
 
   height: 80%;
   width: 100%;
@@ -736,4 +815,35 @@ const Button = styled.button`
       font-size: 17px;
     }
   }
+`;
+
+const DateContainer = styled(DatePicker)`
+  margin-top: 10px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  width: 50%;
+  padding: 5px 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: bold;
+  //   display: flex;
+  text-align: left;
+  //   border: none;
+  position: relative;
+  cursor: pointer;
+
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    padding-right: 5px;
+    font-size: 12px;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
+    font-size: 17px;
+  }
+`;
+const DueDate = styled.div`
+  margin-bottom: 20px;
 `;

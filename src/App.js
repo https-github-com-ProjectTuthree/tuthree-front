@@ -24,6 +24,7 @@ import {
   AdminHome,
   AdminMain,
   AdminCommunity,
+  AdminChatting,
 } from './pages';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { inject, observer, Provider } from 'mobx-react';
@@ -35,6 +36,7 @@ import Common from './stores/Common/Common';
 import NavContainer from './components/Nav';
 import MovileNavContainer from './components/MobileNav';
 import Auth from './stores/Account/Auth';
+import AdminAuth from './stores/Admin/Auth';
 import IE from './components/IE';
 import CheckBrowserModal from './components/CheckBrowswerModal';
 
@@ -56,6 +58,7 @@ class App extends React.Component {
     console.info(localStorage.getItem('token'));
     console.info(localStorage.getItem('userId'));
     console.info(localStorage.getItem('userType'));
+    console.info(localStorage.getItem('adminToken'));
     // this.setState({ ...this.state, width: window.innerWidth - 10 });
     console.info(Auth);
     Common.width = window.innerWidth - 10;
@@ -65,6 +68,16 @@ class App extends React.Component {
       Auth.loggedUserType = localStorage.getItem('userType');
       Auth.loggedUserName = localStorage.getItem('userName');
     }
+
+    if (localStorage.getItem('adminToken')) {
+      console.info('a');
+      AdminAuth.token = localStorage.getItem('adminToken');
+      AdminAuth.loggedAdminId = localStorage.getItem('adminId');
+      AdminAuth.loggedAdminType = localStorage.getItem('adminType');
+      AdminAuth.loggedAdminName = localStorage.getItem('adminName');
+    }
+
+    console.info(AdminAuth.token);
     const userAgent = window.navigator.userAgent;
     console.info(userAgent);
     console.info(userAgent.indexOf('MSIE ') !== -1);
@@ -139,6 +152,7 @@ class App extends React.Component {
             <Route exact path="/admin" component={AdminHome} />
             <Route path="/admin/main" component={AdminMain} />
             <Route path="/admin/community" component={AdminCommunity} />
+            <Route path="/admin/chatting" component={AdminChatting} />
           </BrowserRouter>
         </Provider>
       </div>

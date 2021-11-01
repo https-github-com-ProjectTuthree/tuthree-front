@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import searchImg from '../../../../static/images/Admin/Main/search.png';
-
+import { Link as Connection } from 'react-router-dom';
 import Pagination from '../../../../components/Pagination';
 import checkImg from '../../../../static/images/Common/check.png';
 import DetailCard from './DetailCard';
 import { toJS } from 'mobx';
 
-@inject('AdminUser')
+@inject('AdminUser', 'AdminChatting')
 @observer
 class Content extends Component {
   componentDidMount = () => {
@@ -33,7 +33,7 @@ class Content extends Component {
   };
 
   render() {
-    const { AdminUser } = this.props;
+    const { AdminUser, AdminChatting } = this.props;
     console.info(AdminUser.searchValue);
     return (
       <Container>
@@ -181,6 +181,18 @@ class Content extends Component {
                     <Date>{item.id}</Date>
                     {/* <Date>{item.createDate}</Date> */}
                     <Management>
+                      <Link
+                        to="/admin/chatting"
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await AdminChatting.createChatRoom(item.id);
+                          // AdminUser.deleteUser(item.grade.strType, item.id);
+                        }}
+                      >
+                        <CtlBtn del={false} active={item.userDel === 'CLOSE'}>
+                          <div>채팅</div>
+                        </CtlBtn>
+                      </Link>
                       <CtlBtn
                         del={true}
                         active={item.userDel === 'CLOSE'}
@@ -566,7 +578,8 @@ const CtlBtn = styled.button`
   height: 35px;
   border-radius: 3px;
   border: none;
-  background-color: ${(props) => (props.del ? '#ff0000' : '#0b7def')};
+  background-color: ${(props) =>
+    props.del ? '#ff0000' : 'rgba(235,114,82,0.7)'};
   margin-right: ${(props) => (props.del ? '0' : '5')}px;
   color: ${(props) => (props.del ? '#fff' : '#000')};
 
@@ -728,4 +741,28 @@ const Layer = styled.div`
     margin-top: 30px;
     align-items: ${(props) => props.alignItems && 'center'};
   }
+`;
+
+const Link = styled(Connection)`
+  // text-decoration: none;
+  // color: black;
+  // font-family: RobotoBlack;
+
+  // box-sizing: border-box;
+  // display: block;
+  // text-align: center;
+
+  // @media (min-width: 768px) and (max-width: 991.98px) {
+  //   // font-size: 14px;
+  //   > span {
+  //     font-size: 22px;
+  //   }
+  // }
+
+  // @media (min-width: 992px) and (max-width: 1299.98px) {
+  //   // font-size: 16px;
+  //   > span {
+  //     font-size: 26px;
+  //   }
+  // }
 `;

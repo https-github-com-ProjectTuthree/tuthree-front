@@ -91,6 +91,17 @@ class MobileNav extends React.Component {
                 <ModalContent2>
                   <Link
                     mobile={true}
+                    to="/chatting"
+                    style={{ marginRight: '0px' }}
+                    onClick={() => {
+                      localStorage.removeItem('otherPersonId');
+                    }}
+                  >
+                    채팅
+                  </Link>
+
+                  <Link
+                    mobile={true}
                     to="/mypage"
                     style={{ marginRight: '0px' }}
                   >

@@ -230,6 +230,7 @@ class Content extends Component {
   componentDidMount = async () => {
     const { Auth, Chatting } = this.props;
     console.info(Chatting.studentId);
+    console.info(localStorage.getItem('otherPersonId'));
     await Chatting.getDetailClass();
     await Chatting.getChatUserList();
     if (Auth.loggedUserType === 'teacher') {
@@ -249,6 +250,12 @@ class Content extends Component {
     // <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.2.0/stomp.min.js"></script>
   };
 
+  componentWillUnmount = () => {
+    const { Auth, Chatting } = this.props;
+    Chatting.otherName = '';
+    Chatting.chatAry = [];
+    Chatting.enrollmentState = 1;
+  };
   connect = async () => {
     const { Chatting, Auth } = this.props;
 
@@ -266,6 +273,7 @@ class Content extends Component {
         async (message) => {
           // showMessage(decodeURI(JSON.parse(message.body).content));
           console.info(decodeURI(JSON.parse(message.body).content));
+          await Chatting.getChatUserList();
           await Chatting.getChatList(Chatting.roomId);
           console.info(this.scrollToBottom);
           this.scrollToBottom();
@@ -309,6 +317,7 @@ class Content extends Component {
     console.info(Common.modalActive);
     console.info(Chatting.enrollmentState);
     console.info(Chatting.writingState);
+    console.info(Chatting.enrollmentState);
     year = today.getFullYear();
     month = ('0' + (today.getMonth() + 1)).slice(-2);
     day = ('0' + today.getDate()).slice(-2);
@@ -350,15 +359,29 @@ class Content extends Component {
                 console.info(toJS(item));
                 return (
                   <UserListItem
-                    onClick={() => {
+                    onClick={async () => {
+                      localStorage.removeItem('otherPersonId');
+                      Chatting.enrollmentState = 1;
                       if (Auth.loggedUserType === 'teacher') {
                         Chatting.studentId = item.chatList.senderId;
+                        localStorage.setItem(
+                          'otherPersonId',
+                          item.chatList.senderId
+                        );
                       } else {
                         Chatting.teacherId = item.chatList.senderId;
+                        localStorage.setItem(
+                          'otherPersonId',
+                          item.chatList.senderId
+                        );
                       }
                       Chatting.otherName = item.chatList.name;
                       Chatting.roomId = item.roomId;
-                      Chatting.getChatList(item.roomId);
+                      await Chatting.getDetailClass();
+                      if (Auth.loggedUserType === 'teacher') {
+                        await Chatting.checkInfoWriting();
+                      }
+                      await Chatting.getChatList(item.roomId);
                       this.connect();
                     }}
                   >
@@ -406,57 +429,61 @@ class Content extends Component {
                 );
               })}
           </UserList>
-          <ButtonBox>
-            {Auth.loggedUserType === 'teacher' && Chatting.writingState === 1 && (
-              <CtlBtn
-                state={Chatting.enrollmentState === 1}
-                onClick={() => {
-                  if (Chatting.enrollmentState === 1) {
-                    window.scrollTo(0, 0);
-                    Common.modalActive = true;
-                    Common.modalState = 1;
-                  }
-                }}
-              >
-                <div>과외 등록하기</div>
-              </CtlBtn>
-            )}
-            {Auth.loggedUserType === 'teacher' && Chatting.writingState === 2 && (
-              <CtlBtn
-                state={Chatting.enrollmentState === 1}
-                onClick={async () => {
-                  if (Chatting.enrollmentState === 1) {
-                    await Chatting.getTutoringInfo();
-                    window.scrollTo(0, 0);
-                    Common.modalActive = true;
-                    Common.modalState = 1;
-                  }
-                }}
-              >
-                {Chatting.enrollmentState === 2 ? (
-                  <div>과외 등록하기</div>
-                ) : (
-                  <div>과외 정보 수정하기</div>
+          {localStorage.getItem('otherPersonId') && (
+            <ButtonBox>
+              {Auth.loggedUserType === 'teacher' &&
+                Chatting.writingState === 1 && (
+                  <CtlBtn
+                    state={Chatting.enrollmentState === 1}
+                    onClick={() => {
+                      if (Chatting.enrollmentState === 1) {
+                        window.scrollTo(0, 0);
+                        Common.modalActive = true;
+                        Common.modalState = 1;
+                      }
+                    }}
+                  >
+                    <div>과외 등록하기</div>
+                  </CtlBtn>
                 )}
-              </CtlBtn>
-            )}
+              {Auth.loggedUserType === 'teacher' &&
+                Chatting.writingState === 2 && (
+                  <CtlBtn
+                    state={Chatting.enrollmentState === 1}
+                    onClick={async () => {
+                      if (Chatting.enrollmentState === 1) {
+                        await Chatting.getTutoringInfo();
+                        window.scrollTo(0, 0);
+                        Common.modalActive = true;
+                        Common.modalState = 1;
+                      }
+                    }}
+                  >
+                    {Chatting.enrollmentState === 2 ? (
+                      <div>과외 등록하기</div>
+                    ) : (
+                      <div>과외 정보 수정하기</div>
+                    )}
+                  </CtlBtn>
+                )}
 
-            {Auth.loggedUserType === 'student' && (
-              <CtlBtn
-                state={Chatting.enrollmentState === 1}
-                onClick={async () => {
-                  if (Chatting.enrollmentState === 1) {
-                    await Chatting.getTutoringInfo();
-                    window.scrollTo(0, 0);
-                    // Common.modalActive = true;
-                    // Common.modalState = 2;
-                  }
-                }}
-              >
-                <div>과외 정보 조회하기</div>
-              </CtlBtn>
-            )}
-          </ButtonBox>
+              {Auth.loggedUserType === 'student' && (
+                <CtlBtn
+                  state={Chatting.enrollmentState === 1}
+                  onClick={async () => {
+                    if (Chatting.enrollmentState === 1) {
+                      await Chatting.getTutoringInfo();
+                      window.scrollTo(0, 0);
+                      // Common.modalActive = true;
+                      // Common.modalState = 2;
+                    }
+                  }}
+                >
+                  <div>과외 정보 조회하기</div>
+                </CtlBtn>
+              )}
+            </ButtonBox>
+          )}
         </ChatList>
         <ChatContainer>
           <ChatHeader>{Chatting.otherName}</ChatHeader>
@@ -653,6 +680,7 @@ const UserItem = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 const UserLabel = styled.div`
   width: 100%;
