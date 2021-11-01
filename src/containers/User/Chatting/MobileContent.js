@@ -285,7 +285,7 @@ class Content extends Component {
         room: { id: Chatting.roomId },
         name: encodeURI(Auth.loggedUserName),
         userId: Auth.loggedUserId,
-        content: encodeURI('hihi'),
+        content: Chatting.chatMsg,
       })
     );
   }

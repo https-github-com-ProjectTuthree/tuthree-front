@@ -870,7 +870,7 @@ class MyClass {
       },
 
       headers: {
-        Authorization: Auth.Authorization,
+        Authorization: Auth.token,
       },
     };
     await ClassAPI.getTimeTable(req)

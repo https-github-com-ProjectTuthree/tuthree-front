@@ -376,14 +376,25 @@ class Content extends Component {
                         </Answer>
                       ) : (
                         <Answer type="main" state={true}>
-                          <div
-                            style={{
-                              display: 'block',
-                              backgroundColor: 'rgba(255,0,0,1)',
-                            }}
-                          >
-                            <div>제출만료</div>
-                          </div>
+                          {MyClass.answerDueDateObj[item.id] !== 'undefined' ? (
+                            <div
+                              style={{
+                                display: 'block',
+                                backgroundColor: 'rgba(255,0,0,1)',
+                              }}
+                            >
+                              <div>제출만료</div>
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                display: 'block',
+                                backgroundColor: 'rgba(255,0,0,1)',
+                              }}
+                            >
+                              <div>미입력</div>
+                            </div>
+                          )}
                         </Answer>
                       )
                     ) : date < MyClass.answerDueDateObj[item.id] ? (
