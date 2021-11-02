@@ -32,13 +32,13 @@ class Content extends Component {
         )}
         <Header>
           <div>회원 탈퇴</div>
-          <Description>
+          {/* <Description>
             고객님의 소중한 개인정보보호를 위해서 본인확인을 진행합니다.
           </Description>
-          <Main></Main>
+          <Main></Main> */}
         </Header>
 
-        <Main>
+        {/* <Main>
           <Item>
             <Label>비밀번호</Label>
             <ContentBox>
@@ -68,9 +68,14 @@ class Content extends Component {
               />
             </ContentBox>
           </Item>
-        </Main>
+        </Main> */}
         <ButtonBox>
-          <Button onClick={() => (Common.modalActive = true)}>
+          <Button
+            onClick={async () => {
+              await MyPage.withDrawal();
+              Common.modalActive = true;
+            }}
+          >
             <div>회원탈퇴</div>
           </Button>
         </ButtonBox>

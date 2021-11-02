@@ -287,6 +287,7 @@ class Tutee {
   @action getTuteeDetailList = async (item, idx = 0, type = '') => {
     // this.tuteeDetailAry.push(item);
     // Chatting.studentId = '';
+    console.info(toJS(item));
     console.info(item.postId);
 
     console.info(this.communityState);

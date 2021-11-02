@@ -11,6 +11,7 @@ class QuestionResult extends Component {
   componentDidMount = () => {
     const { Common, MyClass } = this.props;
     console.info('didmount');
+    console.info(toJS(MyClass.currentMarkingResultAry));
   };
   render() {
     const { open, close, header, children, width, Common, MyClass } =
@@ -37,135 +38,41 @@ class QuestionResult extends Component {
             <Container>
               <Header>채점 결과</Header>
               <Main>
-                <Section>
-                  <Label>강의회차</Label>
-                  <Content>
-                    {`${
-                      MyClass.reportDetailAry
-                        ? MyClass.reportDetailAry[0]
-                          ? MyClass.reportDetailAry[0].number
-                          : ''
-                        : ''
-                    } `}{' '}
-                  </Content>
-                </Section>
+                {MyClass.currentMarkingResultAry &&
+                  MyClass.currentMarkingResultAry.map((item, idx) => {
+                    return (
+                      <Item>
+                        <Label>
+                          <div>{item.question}번</div>
+                          <Marking active={item.score === 'RIGHT'}>
+                            <div></div>
+                            <div></div>
+                          </Marking>
+                        </Label>
+                        <Content>
+                          <TuteeAnswer>{item.studentAnswer}</TuteeAnswer>
+                          <OriginAnswer active={item.score === 'RIGHT'}>
+                            {item.teacherAnswer}
+                          </OriginAnswer>
+                          {/* <div>
+                            {item.score} / {item.studentAnswer} /{' '}
+                            {item.teacherAnswer}
+                          </div> */}
 
-                <Section>
-                  <Label>수업시간</Label>
-                  <Content>
-                    {`${
-                      MyClass.reportDetailAry
-                        ? MyClass.reportDetailAry[0]
-                          ? MyClass.reportDetailAry[0].start
-                          : ''
-                        : ''
-                    } ~ `}{' '}
-                    {`${
-                      MyClass.reportDetailAry
-                        ? MyClass.reportDetailAry[0]
-                          ? MyClass.reportDetailAry[0].end
-                          : ''
-                        : ''
-                    } `}{' '}
-                  </Content>
-                </Section>
-
-                <Section>
-                  <Label>진행사항</Label>
-                  <Content>
-                    {`${
-                      MyClass.reportDetailAry
-                        ? MyClass.reportDetailAry[0]
-                          ? MyClass.reportDetailAry[0].detail
-                          : ''
-                        : ''
-                    } `}{' '}
-                  </Content>
-                </Section>
+                          {/* <TextArea
+                      mih={80}
+                      mxh={81}
+                      // bd={true}
+                      idx={idx}
+                      type="setAnswer"
+                      value={item.ans}
+                      placeholder="답 입력"
+                    /> */}
+                        </Content>
+                      </Item>
+                    );
+                  })}
               </Main>
-              {/* <Line>
-          <Label>강의회차</Label>
-          <Content width="80%">
-            <Input
-              value={MyClass.reportRound}
-              ml={15}
-              mr={15}
-              bd={true}
-              width="120px"
-              placeholder="ex) 1"
-              onChange={(e) => MyClass.onChangeHandler(e, 'set_report')}
-              onFocus={(e) => (e.target.placeholder = '')}
-              onBlur={(e) => (e.target.placeholder = 'ex) 1')}
-            />{' '}
-            <span>회차</span>
-          </Content>
-        </Line>
-
-        <Line>
-          <Label>수업시간</Label>
-          <Content>
-            <TimeLabel type="start">시작시간</TimeLabel>
-            <TimePickerContainer
-              type="start"
-              state="report"
-              active={MyClass.reportWritingState === 2}
-            />{' '}
-            <span> ~ </span>
-            <TimePickerContainer
-              type="end"
-              state="report"
-              active={MyClass.reportWritingState === 2}
-            />
-            <TimeLabel type="end">종료시간</TimeLabel>
-          </Content>
-        </Line>
-        <Line>
-          <Label>진행사항</Label>
-          <Content width="80%">
-            <TextArea
-              mih={150}
-              bd={true}
-              type="QuestionResult"
-              value={MyClass.reportContent}
-              placeholder="오늘은 (...) 부분에 대해서 진행하였습니다."
-            />
-          </Content>
-        </Line>
-        <ButtonBox>
-          {MyClass.reportWritingState === 1 ? (
-            <Button
-              color="#fff"
-              bcolor="rgb(235, 114, 82)"
-              onClick={() => MyClass.setReport()}
-            >
-              <div>저장</div>
-            </Button>
-          ) : (
-            <>
-              <Button
-                color="#fff"
-                bcolor="rgb(235, 114, 82)"
-                onClick={() => {
-                  MyClass.putReport(MyClass.reportDetailAry[0].id);
-                  // console.info(toJS(MyClass.reportDetailAry[0]));
-                }}
-              >
-                <div>수정</div>
-              </Button>
-
-              <Button
-                color="#fff"
-                bcolor="rgba(255, 0, 0, 0.7)"
-                onClick={() => {
-                  MyClass.delReport(MyClass.reportDetailAry[0].id);
-                  // console.info(toJS(MyClass.reportDetailAry[0]));
-                }}
-              >
-                <div>삭제</div>
-              </Button>
-            </>
-          )}
-        </ButtonBox> */}
             </Container>
           </>
         ) : null}
@@ -254,22 +161,44 @@ const Line = styled.div`
   align-items: center;
   margin: 10px 0;
 `;
-const Label = styled.div`
-  width: 20%;
-  font-size: 18px;
-  min-width: 100px;
+const Item = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  width: 100px;
+  border: 1px solid #000;
+  margin-left: -1px;
+  margin-top: -1px;
 
   @media (min-width: 0px) and (max-width: 767.98px) {
-    font-size: 13px;
-    min-width: 70px;
+    width: 70px;
+    height: 100px;
   }
   @media (min-width: 768px) and (max-width: 991.98px) {
-    width: 15%;
-    font-size: 16px;
+    width: 90px;
   }
 
   @media (min-width: 992px) and (max-width: 1299.98px) {
-    width: 15%;
+    width: 95px;
+  }
+`;
+const Label = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(235, 114, 82, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #707070;
+
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    font-size: 13px;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    font-size: 15px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
     font-size: 17px;
   }
 `;
@@ -277,12 +206,14 @@ const Content = styled.div`
   position: relative;
   width: ${(props) => (props.width ? props.width : '')};
   display: flex;
+  flex-direction: column;
   align-items: center;
 
   font-size: 14px;
   margin-left: 5px;
   word-break: break-word;
   font-weight: 400;
+  padding-top: 10px;
 
   @media (min-width: 0px) and (max-width: 767.98px) {
     font-size: 11px;
@@ -327,20 +258,17 @@ const Header = styled.div`
 `;
 const Main = styled.div`
   background-color: white;
-  font-color: white;
+  // font-color: white;
   text-align: center;
   display: flex;
   margin-top: 20px;
 
-  flex-direction: column;
+  // flex-direction: column;
   //   border: 2px solid red;
 
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-  width: 100%;
-  //   font-size: 20px;
+  // ont-size: 20px;
   //   font-weight: 600;
+  flex-wrap: wrap;
 
   @media (min-width: 0px) and (max-width: 767.98px) {
     height: 100%;
@@ -353,4 +281,86 @@ const Section = styled.div`
   width: 100%;
   display: flex;
   margin: 5px 0;
+`;
+
+const Marking = styled.div`
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: ${(props) => (props.active ? '3px solid red' : 'none')};
+
+  // width: 2px;
+  // height: 2px;
+
+  > div {
+    display: ${(props) => (props.active ? 'none' : 'block')};
+    position: absolute;
+    height: 2px;
+    width: 32px;
+    background-color: red;
+    top: 50%;
+  }
+  > div:nth-of-type(1) {
+    transform: rotate(45deg);
+  }
+  > div:nth-of-type(2) {
+    transform: rotate(-45deg);
+  }
+
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    width: 22px;
+    height: 22px;
+    > div {
+      width: 22px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    width: 28px;
+    height: 28px;
+    > div {
+      width: 28px;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
+    width: 30px;
+    height: 30px;
+    > div {
+      width: 30px;
+    }
+  }
+`;
+
+const TuteeAnswer = styled.div`
+  width: 100%;
+  font-size: 16px;
+
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    font-size: 12px;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
+    font-size: 15px;
+  }
+`;
+const OriginAnswer = styled.div`
+  width: 100%;
+  font-size: 16px;
+  color: red;
+  display: ${(props) => (props.active ? 'none' : 'block')};
+
+  @media (min-width: 0px) and (max-width: 767.98px) {
+    font-size: 12px;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1299.98px) {
+    font-size: 15px;
+  }
 `;

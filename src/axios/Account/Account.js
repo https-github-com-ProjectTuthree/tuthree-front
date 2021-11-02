@@ -134,3 +134,12 @@ export function changePwd(req) {
     data: req.data,
   });
 }
+
+export function emailAuth(req) {
+  return axios({
+    method: 'GET',
+    url: `${ROOT_URL}/auth-email`,
+    params: req.params ? req.params : null,
+    headers: req.headers ? req.headers : null,
+  });
+}

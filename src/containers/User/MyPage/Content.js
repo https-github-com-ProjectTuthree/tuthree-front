@@ -6,6 +6,7 @@ import TutoringInfoContainer from './TutoringInfo';
 import AltPasswordContainer from './AltPassword';
 import WithDrawalContainer from './Withdrawal';
 import EnrollmentContainer from './Enrollment';
+import BookmarkContainer from './Bookmark';
 
 @inject('MyPage', 'Common', 'Auth')
 @observer
@@ -27,6 +28,10 @@ class Content extends Component {
           {/* <Item onClick={() => (MyPage.state = 4)} active={MyPage.state === 4}>
             <div>알림 설정</div>
           </Item> */}
+          <Item onClick={() => (MyPage.state = 6)} active={MyPage.state === 6}>
+            <div>북마크 목록</div>
+          </Item>
+
           {Auth.loggedUserType === 'student' && (
             <Item
               onClick={() => (MyPage.state = 5)}
@@ -45,6 +50,7 @@ class Content extends Component {
           {MyPage.state === 3 && <AltPasswordContainer />}
           {MyPage.state === 4 && <WithDrawalContainer />}
           {MyPage.state === 5 && <EnrollmentContainer />}
+          {MyPage.state === 6 && <BookmarkContainer />}
         </MainBox>
       </Container>
     );

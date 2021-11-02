@@ -62,6 +62,7 @@ class MyClass {
   @observable markingTotalQuestion = 0;
   @observable markingResultTotalObj = {};
   @observable markingResultAry = [];
+  @observable currentMarkingResultAry = []; // 결과 보기 클릭했을 때 markingResultTotalObj 로부터 저장
   @observable markingStateAry = [];
   @observable markingStateObj = {};
   @observable markingTotalScoreObj = {};
@@ -715,7 +716,7 @@ class MyClass {
     const req = {
       id: id,
       headers: {
-        Authorization: Auth.Authorization,
+        Authorization: Auth.token,
       },
     };
     console.info(req);
@@ -773,8 +774,9 @@ class MyClass {
       .then(async (res) => {
         console.info(res);
         alert('답안 작성이 완료되었습니다!');
+        await this.getQuestionList();
         this.tuteeAnswerModalActive = false;
-        this.getQuestionList();
+
         // alert('수업보고서 작성이 완료되었습니다!');
         // this.writingTabState = 1;
         // Common.modalActive = false;
@@ -863,6 +865,7 @@ class MyClass {
 
   @action getTimeTable = async () => {
     console.info(Auth.loggedUserId);
+    this.myScheduleAry = [];
     const req = {
       params: {
         id: Auth.loggedUserId,
@@ -876,7 +879,17 @@ class MyClass {
     await ClassAPI.getTimeTable(req)
       .then(async (res) => {
         console.info(res);
-        this.myScheduleAry = await res.data.data;
+        if (Auth.loggedUserType !== 'parent') {
+          this.myScheduleAry = await res.data.data;
+        } else {
+          res.data.data &&
+            res.data.data.map(async (item, idx) => {
+              console.info(item);
+              if (item.list.length !== 0) {
+                await this.myScheduleAry.push(item);
+              }
+            });
+        }
       })
       .catch((e) => {
         console.info(e);

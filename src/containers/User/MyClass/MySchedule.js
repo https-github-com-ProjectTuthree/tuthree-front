@@ -119,155 +119,360 @@ class MySchedule extends Component {
       일: [],
     };
 
+    if (Auth.loggedUserType !== 'parent') {
+      MyClass.myScheduleAry &&
+        MyClass.myScheduleAry.map(async (item, idx) => {
+          console.info(toJS(item));
+          // item.schedule.mon &&
+          //   item.schedule.mon.map(async (subItem, id) => {
+          //     // console.info(`${idx}-월-${id}`);
+          //     console.info(`${item.studentName} : 월`);
+          //     await MyClass.myScheduleEvent.월.push({
+          //       id: `${idx}-월-${id}`,
+          //       //   name: `${item.studentName} - ${idx}`,
+          //       name: `${item.studentName}`,
+          //       type: 'custom',
+          //       startTime: new Date(thisWeek[0] + 'T' + subItem.start),
+          //       endTime: new Date(thisWeek[0] + 'T' + subItem.end),
+          //     });
+          //   });
+
+          if (
+            item.schedule.mon !== undefined &&
+            item.schedule.mon.length !== 0
+          ) {
+            await item.schedule.mon.map(async (subItem, id) => {
+              // console.info('tuetuetuetuetue');
+              console.info(`${item.studentName} : 월`);
+              await MyClass.myScheduleEvent.월.push({
+                id: `${idx}-월-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[0] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[0] + 'T' + subItem.end),
+              });
+            });
+          }
+
+          if (
+            item.schedule.tue !== undefined &&
+            item.schedule.tue.length !== 0
+          ) {
+            await item.schedule.tue.map(async (subItem, id) => {
+              // console.info('tuetuetuetuetue');
+              console.info(`${item.studentName} : 화`);
+              await MyClass.myScheduleEvent.화.push({
+                id: `${idx}-화-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[1] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[1] + 'T' + subItem.end),
+              });
+            });
+          }
+          console.info(item.schedule.wed);
+          console.info(item.schedule.wed !== undefined);
+          // console.info('===========================================');
+          if (
+            item.schedule.wed !== undefined &&
+            item.schedule.wed.length !== 0
+          ) {
+            await item.schedule.wed.map(async (subItem, id) => {
+              console.info(`${item.studentName} : 수`);
+              await MyClass.myScheduleEvent.수.push({
+                id: `${idx}-수-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[2] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[2] + 'T' + subItem.end),
+              });
+            });
+          }
+
+          if (
+            item.schedule.thu !== undefined &&
+            item.schedule.thu.length !== 0
+          ) {
+            await item.schedule.thu.map(async (subItem, id) => {
+              // console.info('thuthuthuthuthu');
+              console.info(`${item.studentName} : 목`);
+              console.info(`${idx}-목-${id}`);
+              await MyClass.myScheduleEvent.목.push({
+                id: `${idx}-목-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[3] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[3] + 'T' + subItem.end),
+              });
+            });
+          }
+
+          if (
+            item.schedule.fri !== undefined &&
+            item.schedule.fri.length !== 0
+          ) {
+            await item.schedule.fri.map(async (subItem, id) => {
+              console.info(`${item.studentName} : 금`);
+              await MyClass.myScheduleEvent.금.push({
+                id: `${idx}-금-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[4] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[4] + 'T' + subItem.end),
+              });
+            });
+          }
+
+          if (
+            item.schedule.sat !== undefined &&
+            item.schedule.sat.length !== 0
+          ) {
+            await item.schedule.sat.map(async (subItem, id) => {
+              console.info(`${item.studentName} : 토`);
+              await MyClass.myScheduleEvent.토.push({
+                id: `${idx}-토-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[5] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[5] + 'T' + subItem.end),
+              });
+            });
+          }
+
+          if (
+            item.schedule.sun !== undefined &&
+            item.schedule.sun.length !== 0
+          ) {
+            await item.schedule.sun.map(async (subItem, id) => {
+              console.info(`${item.studentName} : 일`);
+              await MyClass.myScheduleEvent.일.push({
+                id: `${idx}-일-${id}`,
+                //   name: `${item.studentName} - ${idx}`,
+                name:
+                  Auth.loggedUserType === 'parent'
+                    ? `${item.studentName}`
+                    : `${item.name}`,
+                type: 'custom',
+                startTime: new Date(thisWeek[6] + 'T' + subItem.start),
+                endTime: new Date(thisWeek[6] + 'T' + subItem.end),
+              });
+            });
+          }
+          console.info('=======================');
+          if (MyClass.myScheduleAry.length === idx + 1) {
+            this.setState({ g: 3 });
+          }
+        });
+      console.info(toJS(MyClass.myScheduleEvent));
+      // console.info(temp);
+    } else {
+      (await MyClass.myScheduleAry) &&
+        MyClass.myScheduleAry.map(async (item, idx) => {
+          console.info(toJS(item));
+
+          await item.list.map(async (childItem, subIdx) => {
+            console.info(toJS(childItem));
+
+            if (
+              childItem.schedule.mon !== undefined &&
+              childItem.schedule.mon.length !== 0
+            ) {
+              await childItem.schedule.mon.map(async (subItem, id) => {
+                // console.info('tuetuetuetuetue');
+                // console.info(`${childItem.studentName} : 월`);
+                await MyClass.myScheduleEvent.월.push({
+                  id: `${idx}-${subIdx}-월-${id}`,
+                  //   name: `${item.studentName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[0] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[0] + 'T' + subItem.end),
+                });
+              });
+            }
+
+            if (
+              childItem.schedule.tue !== undefined &&
+              childItem.schedule.tue.length !== 0
+            ) {
+              await childItem.schedule.tue.map(async (subItem, id) => {
+                // console.info('tuetuetuetuetue');
+                // console.info(`${item.studentName} : 화`);
+                await MyClass.myScheduleEvent.화.push({
+                  id: `${idx}-${subIdx}-화-${id}`,
+                  //   name: `${item.studentName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[1] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[1] + 'T' + subItem.end),
+                });
+              });
+            }
+            // console.info(item.schedule.wed);
+            // console.info(item.schedule.wed !== undefined);
+            // console.info('===========================================');
+            if (
+              childItem.schedule.wed !== undefined &&
+              childItem.schedule.wed.length !== 0
+            ) {
+              await childItem.schedule.wed.map(async (subItem, id) => {
+                console.info(`${item.childName} : 수`);
+                await MyClass.myScheduleEvent.수.push({
+                  id: `${idx}-${subIdx}-수-${id}`,
+                  //   name: `${item.childName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[2] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[2] + 'T' + subItem.end),
+                });
+              });
+            }
+
+            if (
+              childItem.schedule.thu !== undefined &&
+              childItem.schedule.thu.length !== 0
+            ) {
+              await childItem.schedule.thu.map(async (subItem, id) => {
+                // console.info('thuthuthuthuthu');
+                // console.info(`${item.childName} : 목`);
+                // console.info(`${idx}-목-${id}`);
+                await MyClass.myScheduleEvent.목.push({
+                  id: `${idx}-${subIdx}-목-${id}`,
+                  //   name: `${item.childName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[3] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[3] + 'T' + subItem.end),
+                });
+              });
+            }
+
+            if (
+              childItem.schedule.fri !== undefined &&
+              childItem.schedule.fri.length !== 0
+            ) {
+              await childItem.schedule.fri.map(async (subItem, id) => {
+                // console.info(`${item.childName} : 금`);
+                await MyClass.myScheduleEvent.금.push({
+                  id: `${idx}-${subIdx}-금-${id}`,
+                  //   name: `${item.childName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[4] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[4] + 'T' + subItem.end),
+                });
+              });
+            }
+
+            if (
+              childItem.schedule.sat !== undefined &&
+              childItem.schedule.sat.length !== 0
+            ) {
+              await childItem.schedule.sat.map(async (subItem, id) => {
+                // console.info(`${item.childName} : 토`);
+                await MyClass.myScheduleEvent.토.push({
+                  id: `${idx}-${subIdx}-토-${id}`,
+                  //   name: `${item.childName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[5] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[5] + 'T' + subItem.end),
+                });
+              });
+            }
+
+            if (
+              childItem.schedule.sun !== undefined &&
+              childItem.schedule.sun.length !== 0
+            ) {
+              await childItem.schedule.sun.map(async (subItem, id) => {
+                // console.info(`${item.childName} : 일`);
+                await MyClass.myScheduleEvent.일.push({
+                  id: `${idx}-${subIdx}-일-${id}`,
+                  //   name: `${item.childName} - ${idx}`,
+                  name:
+                    Auth.loggedUserType === 'parent'
+                      ? `${item.childName}(${childItem.name}T)`
+                      : `${item.name}`,
+                  teacherName: childItem.name,
+                  type: 'custom',
+                  startTime: new Date(thisWeek[6] + 'T' + subItem.start),
+                  endTime: new Date(thisWeek[6] + 'T' + subItem.end),
+                });
+              });
+            }
+            console.info('=======================');
+            if (MyClass.myScheduleAry.length === idx + 1) {
+              this.setState({ g: 3 });
+            }
+          });
+          // item.schedule.mon &&
+          //   item.schedule.mon.map(async (subItem, id) => {
+          //     // console.info(`${idx}-월-${id}`);
+          //     console.info(`${item.studentName} : 월`);
+          //     await MyClass.myScheduleEvent.월.push({
+          //       id: `${idx}-월-${id}`,
+          //       //   name: `${item.studentName} - ${idx}`,
+          //       name: `${item.studentName}`,
+          //       type: 'custom',
+          //       startTime: new Date(thisWeek[0] + 'T' + subItem.start),
+          //       endTime: new Date(thisWeek[0] + 'T' + subItem.end),
+          //     });
+          //   });
+        });
+      console.info(toJS(MyClass.myScheduleEvent));
+      // console.info(temp);
+    }
+
     console.info(toJS(MyClass.myScheduleAry));
-    MyClass.myScheduleAry &&
-      MyClass.myScheduleAry.map(async (item, idx) => {
-        console.info(toJS(item));
-        // item.schedule.mon &&
-        //   item.schedule.mon.map(async (subItem, id) => {
-        //     // console.info(`${idx}-월-${id}`);
-        //     console.info(`${item.studentName} : 월`);
-        //     await MyClass.myScheduleEvent.월.push({
-        //       id: `${idx}-월-${id}`,
-        //       //   name: `${item.studentName} - ${idx}`,
-        //       name: `${item.studentName}`,
-        //       type: 'custom',
-        //       startTime: new Date(thisWeek[0] + 'T' + subItem.start),
-        //       endTime: new Date(thisWeek[0] + 'T' + subItem.end),
-        //     });
-        //   });
-
-        if (item.schedule.mon !== undefined && item.schedule.mon.length !== 0) {
-          await item.schedule.mon.map(async (subItem, id) => {
-            // console.info('tuetuetuetuetue');
-            console.info(`${item.studentName} : 월`);
-            await MyClass.myScheduleEvent.월.push({
-              id: `${idx}-월-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[0] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[0] + 'T' + subItem.end),
-            });
-          });
-        }
-
-        if (item.schedule.tue !== undefined && item.schedule.tue.length !== 0) {
-          await item.schedule.tue.map(async (subItem, id) => {
-            // console.info('tuetuetuetuetue');
-            console.info(`${item.studentName} : 화`);
-            await MyClass.myScheduleEvent.화.push({
-              id: `${idx}-화-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[1] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[1] + 'T' + subItem.end),
-            });
-          });
-        }
-        console.info(item.schedule.wed);
-        console.info(item.schedule.wed !== undefined);
-        // console.info('===========================================');
-        if (item.schedule.wed !== undefined && item.schedule.wed.length !== 0) {
-          await item.schedule.wed.map(async (subItem, id) => {
-            console.info(`${item.studentName} : 수`);
-            await MyClass.myScheduleEvent.수.push({
-              id: `${idx}-수-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[2] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[2] + 'T' + subItem.end),
-            });
-          });
-        }
-
-        if (item.schedule.thu !== undefined && item.schedule.thu.length !== 0) {
-          await item.schedule.thu.map(async (subItem, id) => {
-            // console.info('thuthuthuthuthu');
-            console.info(`${item.studentName} : 목`);
-            console.info(`${idx}-목-${id}`);
-            await MyClass.myScheduleEvent.목.push({
-              id: `${idx}-목-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[3] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[3] + 'T' + subItem.end),
-            });
-          });
-        }
-
-        if (item.schedule.fri !== undefined && item.schedule.fri.length !== 0) {
-          await item.schedule.fri.map(async (subItem, id) => {
-            console.info(`${item.studentName} : 금`);
-            await MyClass.myScheduleEvent.금.push({
-              id: `${idx}-금-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[4] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[4] + 'T' + subItem.end),
-            });
-          });
-        }
-
-        if (item.schedule.sat !== undefined && item.schedule.sat.length !== 0) {
-          await item.schedule.sat.map(async (subItem, id) => {
-            console.info(`${item.studentName} : 토`);
-            await MyClass.myScheduleEvent.토.push({
-              id: `${idx}-토-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[5] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[5] + 'T' + subItem.end),
-            });
-          });
-        }
-
-        if (item.schedule.sun !== undefined && item.schedule.sun.length !== 0) {
-          await item.schedule.sun.map(async (subItem, id) => {
-            console.info(`${item.studentName} : 일`);
-            await MyClass.myScheduleEvent.일.push({
-              id: `${idx}-일-${id}`,
-              //   name: `${item.studentName} - ${idx}`,
-              name:
-                Auth.loggedUserType === 'parent'
-                  ? `${item.studentName}`
-                  : `${item.name}`,
-              type: 'custom',
-              startTime: new Date(thisWeek[6] + 'T' + subItem.start),
-              endTime: new Date(thisWeek[6] + 'T' + subItem.end),
-            });
-          });
-        }
-        console.info('=======================');
-        if (MyClass.myScheduleAry.length === idx + 1) {
-          this.setState({ g: 3 });
-        }
-      });
-    console.info(toJS(MyClass.myScheduleEvent));
-    // console.info(temp);
   };
 
   renderHour = (hour, defaultAttributes, styles) => {

@@ -109,7 +109,8 @@ class App extends React.Component {
 
     // await document.head.appendChild(script);
 
-    if (!firebase.length) {
+    console.info(firebase.length);
+    if (firebase.length !== 0) {
       firebase.initializeApp(config);
     }
 

@@ -220,9 +220,7 @@ class MobileContent extends Component {
                         return (
                           <>
                             {idx + 1 <=
-                            Math.trunc(
-                              Tutor.tutorDetailAry.star / Tutor.tutorReviewCount
-                            ) ? (
+                            Math.trunc(Tutor.tutorDetailAry.star) ? (
                               <img src={starImg} />
                             ) : (
                               <img src={emptyStarImg} />
@@ -236,9 +234,7 @@ class MobileContent extends Component {
                     <img src={starImg} />
                     <img src={starImg} /> */}
 
-                    <div>
-                      {Tutor.tutorDetailAry.star / Tutor.tutorReviewCount} | 5.0
-                    </div>
+                    <div>{Tutor.tutorDetailAry.star} | 5.0</div>
                   </Rating>
                 </SubHeader>
               )}

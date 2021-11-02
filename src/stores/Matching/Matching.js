@@ -29,6 +29,7 @@ class Matching {
       //     Authorization: this.Authorization,
       //   },
     };
+    console.info(req.params);
     await MatchingAPI.setBookmark(req)
       .then(async (res) => {
         console.info(res);
@@ -43,25 +44,27 @@ class Matching {
 
   @action getBookmark = async () => {
     this.bookmarkAry = [];
+    console.info(Auth.loggedUserId);
     const req = {
-      params: {
-        // userId: 'lZmooJ8Ydd',
-        userId: Auth.loggedUserId,
+      // params: {
+      //   // userId: 'lZmooJ8Ydd',
+      //   userId: Auth.loggedUserId,
+      // },
+      headers: {
+        Authorization: Auth.token,
       },
-      //   headers: {
-      //     Authorization: this.Authorization,
-      //   },
     };
     await MatchingAPI.getBookmark(req)
-      .then((res) => {
+      .then(async (res) => {
         console.info(res);
-        this.bookmarkAry.push(res.data.data);
-        console.info(toJS(this.bookmarkAry));
+        await this.bookmarkAry.push(res.data.data);
+        //  this.bookmarkAry = await res.data.data;
       })
       .catch((e) => {
         console.info(e);
         console.info(e.response);
       });
+    console.info(toJS(this.bookmarkAry));
   };
 
   @action checkBookmark = (type) => {
@@ -76,10 +79,11 @@ class Matching {
       this.bookmarkAry[0] &&
       this.bookmarkAry[0].map((item, idx) => {
         console.info(toJS(item));
+        console.info(userId);
         // console.info(item.indexOf('test112'));
         // if (item.user2 === 'test112') {
-        if (item.user2 === userId) {
-          this.bookmarkId = item.id;
+        if (item.object.id === userId) {
+          this.bookmarkId = item.bookmarkId;
           this.isCheckBookmark = true;
           return true;
         }

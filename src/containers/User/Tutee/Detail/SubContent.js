@@ -118,6 +118,7 @@ class SubContent extends Component {
 
                   if (Matching.isCheckBookmark) {
                     await Matching.checkBookmark('tutee');
+                    console.info(Matching.bookmarkId);
                     Matching.delBookmark(Matching.bookmarkId);
                   } else {
                     Matching.setBookmark('tutee');

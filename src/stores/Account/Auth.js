@@ -1241,6 +1241,31 @@ class Auth {
         // alert('일치하는 데이터가 없습니다. 다시 시도해주세요.');
       });
   };
+
+  @action emailAuth = async () => {
+    if (!this.signupEmail || !this.signupEmailDomain) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    console.info(this.signupEmail + '@' + this.signupEmailDomain);
+    const req = {
+      params: {
+        mail: this.signupEmail + '@' + this.signupEmailDomain,
+      },
+    };
+
+    AccountAPI.emailAuth(req)
+      .then((res) => {
+        console.info(res);
+        if (res.data.success) {
+        }
+      })
+      .catch((e) => {
+        console.info(e);
+        console.info(e.response);
+        // alert('일치하는 데이터가 없습니다. 다시 시도해주세요.');
+      });
+  };
 }
 
 // autorun(() => {

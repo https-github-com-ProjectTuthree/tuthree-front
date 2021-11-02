@@ -34,6 +34,9 @@ class MyPage {
 
   @observable enrollmentList = [];
 
+  @observable newPwd = '';
+  @observable newPwdConfirm = '';
+
   @action onChangeHandler = (e, type = '', idx = '') => {
     switch (type) {
       case 'email_info':
@@ -78,6 +81,16 @@ class MyPage {
       case 'cost':
         this.cost = e.value;
         console.info(this.cost);
+        break;
+
+      case 'new_password':
+        this.newPwd = e.value;
+        console.info(this.newPwd);
+        break;
+
+      case 'new_password_confirm':
+        this.newPwdConfirm = e.value;
+        console.info(this.newPwdConfirm);
         break;
 
       default:
@@ -385,6 +398,75 @@ class MyPage {
           // this.enrollmentList = await res.data.data;
           alert(`${parentName} 님을 부모님으로 등록하였습니다.`);
           this.getEnrollmentList();
+        }
+      })
+      .catch((e) => {
+        console.info(e);
+        console.info(e.response);
+      });
+    // console.info(toJS(this.enrollmentList));
+  };
+
+  @action alterPassword = async () => {
+    if (!this.newPwd) {
+      alert('새 비밀번호를 입력해주세요.');
+      return;
+    }
+    if (this.newPwd !== this.newPwdConfirm) {
+      alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요');
+      return;
+    }
+    const req = {
+      headers: {
+        Authorization: Auth.token,
+      },
+
+      data: {
+        pwd: this.newPwd,
+      },
+    };
+
+    await MyPageAPI.alterPassword(req)
+      .then(async (res) => {
+        console.info(res);
+
+        if (res.data.statusCode === 401) {
+          alert('로그인이 만료되었습니다');
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+        } else {
+          alert('비밀번호 변경에 성공하였습니다.');
+          this.newPwd = '';
+          this.newPwdConfirm = '';
+        }
+      })
+      .catch((e) => {
+        console.info(e);
+        console.info(e.response);
+      });
+    // console.info(toJS(this.enrollmentList));
+  };
+
+  @action withDrawal = async () => {
+    const req = {
+      headers: {
+        Authorization: Auth.token,
+      },
+    };
+
+    await MyPageAPI.withDrawal(req)
+      .then(async (res) => {
+        console.info(res);
+
+        if (res.data.statusCode === 401) {
+          alert('로그인이 만료되었습니다');
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+        } else {
+          // alert('회원탈퇴를 완료했습니다.');
+
+          localStorage.removeItem('token');
+          // window.location.href = '/';
         }
       })
       .catch((e) => {

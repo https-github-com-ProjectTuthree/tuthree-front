@@ -133,20 +133,20 @@ class Content extends Component {
         <Header>
           <Section>
             <Label>MyClass</Label>
-            {Auth.loggedUserType !== 'parent' && (
-              <ButtonBox>
-                <Button
-                  color="#fff"
-                  bcolor="rgb(235, 114, 82)"
-                  onClick={async () => {
-                    await MyClass.getTimeTable();
-                    MyClass.myScheduleModalActive = true;
-                  }}
-                >
-                  <div>시간표</div>
-                </Button>
-              </ButtonBox>
-            )}
+            {/* {Auth.loggedUserType !== 'parent' && ( */}
+            <ButtonBox>
+              <Button
+                color="#fff"
+                bcolor="rgb(235, 114, 82)"
+                onClick={async () => {
+                  await MyClass.getTimeTable();
+                  MyClass.myScheduleModalActive = true;
+                }}
+              >
+                <div>시간표</div>
+              </Button>
+            </ButtonBox>
+            {/* )} */}
           </Section>
           {Auth.loggedUserType !== 'parent' ? (
             <SortingBox active={MyClass.status}>

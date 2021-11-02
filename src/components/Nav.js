@@ -103,7 +103,12 @@ class Nav extends Component {
                   style={{ width: '30%', marginLeft: '0px' }}
                   onClick={() => console.info('login')}
                 >
-                  <Button bd={true} height={36} pd={true}>
+                  <Button
+                    bd={true}
+                    height={36}
+                    pd={true}
+                    style={{ width: '100px' }}
+                  >
                     <div>로그인</div>
                   </Button>
                 </Link>
@@ -112,13 +117,13 @@ class Nav extends Component {
               {this.state.is_profile && (
                 <ProfileMenu>
                   <div>
-                    <div>
-                      <Button
-                        onClick={() => {
-                          console.info('logout');
-                          Auth.logout();
-                        }}
-                      >
+                    <div
+                      onClick={() => {
+                        console.info('logout');
+                        Auth.logout();
+                      }}
+                    >
+                      <Button>
                         <div>로그아웃</div>
                       </Button>
                     </div>
@@ -126,7 +131,11 @@ class Nav extends Component {
                     <div>
                       <Link
                         to="/mypage"
-                        // style={{ width: '30%', marginLeft: '0px' }}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
                       >
                         <Button>
                           <div>마이페이지</div>
@@ -245,7 +254,7 @@ const ProfileMenu = styled.div`
   z-index: 2;
   > div {
     > div {
-      with: 100%;
+      // width: 100px;
       cursor: pointer;
       height: 50px;
       text-align: center;
@@ -297,7 +306,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   // height: 50px;
-  width: 100px;
+  // width: 100px;
   border: ${(props) => (props.bd ? '1px solid #aaa' : 'none')};
   border-radius: ${(props) => (props.bd ? '50' : '0')}px;
   height: ${(props) => (props.height ? props.height : '0')}px;

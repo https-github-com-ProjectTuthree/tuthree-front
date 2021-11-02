@@ -92,6 +92,7 @@ class Chatting {
   @observable chatUserAry = [];
   @observable chatAry = [];
   @observable roomId = '';
+  @observable registrationState = '';
   @observable chatMsg = '';
 
   @action resetTutoringInfo = () => {

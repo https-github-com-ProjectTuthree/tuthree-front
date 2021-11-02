@@ -22,7 +22,7 @@ class Completion extends React.Component {
       >
         {open ? (
           <>
-            <button
+            {/* <button
               className="close"
               onClick={(e) => {
                 console.info('close');
@@ -32,7 +32,7 @@ class Completion extends React.Component {
             >
               {' '}
               &times;{' '}
-            </button>
+            </button> */}
             <Container>
               <Header>회원탈퇴</Header>
               <Main>회원탈퇴가 완료되었습니다!</Main>

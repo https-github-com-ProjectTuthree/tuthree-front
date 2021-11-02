@@ -9,6 +9,7 @@ import plannerImg from '../../../static/images/Home/planner.png';
 import reportImg from '../../../static/images/Home/report.png';
 import videoConferenceImg from '../../../static/images/Home/video-conference.png';
 import gradingImg from '../../../static/images/Home/grading.png';
+import searchInfo from '../../../static/images/Home/SearchInfo.png';
 
 import Common from '../../../stores/Common/Common';
 
@@ -81,7 +82,12 @@ class ContentContainer extends Component {
                 {chapter_one.map((item) => {
                   return (
                     <Card service="one">
-                      <Img service="one" background="#bbbbbb" />
+                      <Img
+                        service="one"
+                        background="#bbbbbb"
+                        src={searchInfo}
+                        style={{ backgroundImage: `${searchInfo}` }}
+                      />
                       <Content service="one">
                         <Title>
                           <span>[{item.step}]</span> {item.title}
@@ -181,6 +187,7 @@ const Img = styled.img`
   height: ${(props) => (props.service === 'one' ? '65%' : '100%')};
   object-fit: cover;
   background-color: ${(props) => (props.background ? props.background : '')};
+  filter: ${(props) => (props.service === 'one' ? 'blur(3px)' : 'none')};
 
   @media (min-width: 0px) and (max-width: 767.98px) {
     height: 50%;

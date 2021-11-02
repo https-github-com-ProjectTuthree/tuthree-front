@@ -7,6 +7,7 @@ import QuestionResult from './Select/QuestionResult';
 import deleteImg from '../../../../static/images/Signup/delete.png';
 import { ROOT_URL } from '../../../../axios/index';
 import { toJS } from 'mobx';
+import { adminLogin } from '../../../../axios/Account/Account';
 
 const today = new Date();
 let date = null;
@@ -376,20 +377,29 @@ class Content extends Component {
                         </Answer>
                       ) : (
                         <Answer type="main" state={true}>
-                          {MyClass.answerDueDateObj[item.id] !== 'undefined' ? (
+                          {console.info('rre')}
+                          {console.info(
+                            MyClass.answerDueDateObj[item.id] !== 'undefined'
+                          )}
+                          {MyClass.answerDueDateObj[item.id] !== undefined ? (
                             <div
                               style={{
-                                display: 'block',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                                 backgroundColor: 'rgba(255,0,0,1)',
                               }}
                             >
-                              <div>제출만료</div>
+                              <div>기간만료</div>
                             </div>
                           ) : (
                             <div
                               style={{
-                                display: 'block',
-                                backgroundColor: 'rgba(255,0,0,1)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                color: '#000',
                               }}
                             >
                               <div>미입력</div>
@@ -446,14 +456,35 @@ class Content extends Component {
                       </Answer>
                     ) : (
                       <Answer type="main" state={true}>
-                        <div
-                          style={{
-                            display: 'block',
-                            backgroundColor: 'rgba(255,0,0,1)',
-                          }}
-                        >
-                          <div>제출만료</div>
-                        </div>
+                        {console.info('rre')}
+                        {console.info(toJS(MyClass.answerDueDateObj[item.id]))}
+                        {console.info(
+                          MyClass.answerDueDateObj[item.id] !== 'undefined'
+                        )}
+                        {MyClass.answerDueDateObj[item.id] !== undefined ? (
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              backgroundColor: 'rgba(255,0,0,1)',
+                            }}
+                          >
+                            <div>기간만료</div>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              backgroundColor: 'rgba(0,0,0,0.5)',
+                              color: '#000',
+                            }}
+                          >
+                            <div>미입력</div>
+                          </div>
+                        )}
                       </Answer>
                     )}
                     {/* {console.info(item.checked)} */}
@@ -485,7 +516,17 @@ class Content extends Component {
                               MyClass.markingResultTotalObj[idx].length}
                           </ResultScore>
                           <ResultBtn
-                            onClick={() => {
+                            onClick={async () => {
+                              console.info(toJS(MyClass.markingStateObj[idx]));
+                              MyClass.currentMarkingResultAry = [];
+                              MyClass.currentMarkingResultAry = await MyClass
+                                .markingResultTotalObj[idx];
+                              console.info(
+                                toJS(MyClass.markingResultTotalObj[idx])
+                              );
+                              // console.info(
+                              //   toJS(MyClass.currentMarkingResultAry[1])
+                              // );
                               MyClass.resultModalActive = true;
                             }}
                           >

@@ -17,26 +17,29 @@ class Content extends Component {
           <div>비밀번호 변경</div>
         </Header>
         <Main>
-          <Item>
+          {/* <Item>
             <Label>기존 비밀번호</Label>
             <ContentBox>
               <Input
                 placeholder="기존 비밀번호를 입력하세요."
-                onChange={(e) => this.inputHandler(e.target, 'origin')}
+                onChange={(e) => MyPage.onChangeHandler(e.target, 'new_password')}
                 onFocus={(e) => (e.target.placeholder = '')}
                 onBlur={(e) =>
                   (e.target.placeholder = '기존 비밀번호를 입력하세요.')
                 }
               />
             </ContentBox>
-          </Item>
+          </Item> */}
 
           <Item>
             <Label>새 비밀번호</Label>
             <ContentBox>
               <Input
+                value={MyPage.newPwd}
                 placeholder="새 비밀번호를 입력하세요."
-                onChange={(e) => this.inputHandler(e.target, 'new')}
+                onChange={(e) =>
+                  MyPage.onChangeHandler(e.target, 'new_password')
+                }
                 onFocus={(e) => (e.target.placeholder = '')}
                 onBlur={(e) =>
                   (e.target.placeholder = '새 비밀번호를 입력하세요.')
@@ -49,8 +52,11 @@ class Content extends Component {
             <Label>새 비밀번호 확인</Label>
             <ContentBox>
               <Input
+                value={MyPage.newPwdConfirm}
                 placeholder="새 비밀번호를 한 번 더 입력하세요."
-                onChange={(e) => this.inputHandler(e.target, 'new2')}
+                onChange={(e) =>
+                  MyPage.onChangeHandler(e.target, 'new_password_confirm')
+                }
                 onFocus={(e) => (e.target.placeholder = '')}
                 onBlur={(e) =>
                   (e.target.placeholder = '새 비밀번호를 한 번 더 입력하세요.')
@@ -60,7 +66,7 @@ class Content extends Component {
           </Item>
         </Main>
         <ButtonBox>
-          <Button>
+          <Button onClick={() => MyPage.alterPassword()}>
             <div>변경</div>
           </Button>
         </ButtonBox>
@@ -182,6 +188,7 @@ const ButtonBox = styled.div`
   align-items: center;
 `;
 const Button = styled.button`
+  cursor: pointer;
   margin-top: 60px;
   background-color: rgb(235, 114, 82);
   border: none;
