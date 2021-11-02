@@ -253,7 +253,7 @@ class Content extends Component {
     const { Test2, Auth } = this.props;
 
     console.info('connect 중 ...');
-    var socket = new SockJS('http://221.141.233.185:8088/tuthree-websocket');
+    var socket = new SockJS('https://gctuthree.shop/tuthree-websocket');
     stompClient = Stomp.over(socket);
     // stompClient = socket;
     // stompClient = new Stomp.Client
@@ -285,7 +285,7 @@ class Content extends Component {
     // stompClient.send("/ws/message", {}, JSON.stringify({'content': $("#message").val()}));
     // stompClient.send("/ws/message", {}, JSON.stringify({'content': encodeURI($("#message").val())}));
     stompClient.send(
-      '/ws/message',
+      '/wss/message',
       {},
       JSON.stringify({
         room: { id: Test2.roomId },
