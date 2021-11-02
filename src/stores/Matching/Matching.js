@@ -79,10 +79,12 @@ class Matching {
       this.bookmarkAry[0] &&
       this.bookmarkAry[0].map((item, idx) => {
         console.info(toJS(item));
+        console.info(toJS(item.object.id));
         console.info(userId);
         // console.info(item.indexOf('test112'));
         // if (item.user2 === 'test112') {
-        if (item.object.id === userId) {
+        if (item.object.userId === userId) {
+          console.info('true');
           this.bookmarkId = item.bookmarkId;
           this.isCheckBookmark = true;
           return true;

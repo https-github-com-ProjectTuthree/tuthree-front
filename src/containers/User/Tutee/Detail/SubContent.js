@@ -106,6 +106,7 @@ class SubContent extends Component {
           </Main>
           {Auth.loggedUserType === 'teacher' && (
             <ButtonBox>
+              {console.info(Matching.isCheckBookmark)}
               <Button
                 // bg="#888"
                 bd="1px solid #707070"
@@ -115,7 +116,7 @@ class SubContent extends Component {
                   // Common.modalActive = true;
                   // window.location.href = '/chatting';
                   console.info(Matching.bookmarkId);
-
+                  console.info(Matching.isCheckBookmark);
                   if (Matching.isCheckBookmark) {
                     await Matching.checkBookmark('tutee');
                     console.info(Matching.bookmarkId);
@@ -133,7 +134,6 @@ class SubContent extends Component {
 
                 <div>북마크</div>
               </Button>
-
               <Button
                 bg="rgba(235, 114, 82, 0.7)"
                 onClick={() => {
