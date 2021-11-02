@@ -76,6 +76,7 @@ class Content extends Component {
                             item.id,
                             idx
                           );
+                          this.setState({ g: 3 });
                         }}
                       >
                         <img src={checkImg} />

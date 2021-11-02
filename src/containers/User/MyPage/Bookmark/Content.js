@@ -43,8 +43,8 @@ class Content extends Component {
                       gender={item.object.sex}
                       rating={item.object.star}
                       school={`${item.object.school} ${item.object.major}`}
-                      subject={item.object.subjectL}
-                      location={item.object.regionL}
+                      subject={item.object.subject}
+                      location={item.object.region}
                       budget={item.object.cost}
                       registration={item.object.registration}
                       post={item.object.file}
@@ -57,24 +57,25 @@ class Content extends Component {
               Matching.bookmarkAry[0].map((item, idx) => {
                 console.info(toJS(item));
                 return (
-                  <div>
-                    {/* <div>{item.object.name}</div>
-                          <div>{item.bookmarkId}</div>
-                          <div>d</div> */}
-
+                  <Link
+                    to="/tutor"
+                    onClick={async () =>
+                      await Tutor.getTutorDetailList(item.object, idx)
+                    }
+                  >
                     <Card
                       type="tutor"
                       name={item.object.name}
                       gender={item.object.sex}
                       rating={item.object.star}
                       school={`${item.object.school} ${item.object.major}`}
-                      subject={item.object.subjectL}
-                      location={item.object.regionL}
+                      subject={item.object.subject}
+                      location={item.object.region}
                       budget={item.object.cost}
                       registration={item.object.registration}
                       post={item.object.file}
                     />
-                  </div>
+                  </Link>
                 );
               })}
         </Main>
@@ -240,7 +241,7 @@ const Name = styled.div`
 
 const Link = styled(Connection)`
   text-decoration: none;
-  //   color: black;
+  color: black;
   font-family: RobotoBlack;
 
   box-sizing: border-box;

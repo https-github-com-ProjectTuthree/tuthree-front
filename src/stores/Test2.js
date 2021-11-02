@@ -756,8 +756,8 @@ class Chatting {
     await ChattingAPI.sendMessage(req)
       .then(async (res) => {
         console.info(res);
-        // await this.getChatList(this.roomId);
-        this.getChatUserList();
+        await this.getChatList(this.roomId);
+        // this.getChatUserList(this.roomId);
       })
       .catch((e) => {
         console.info(e);

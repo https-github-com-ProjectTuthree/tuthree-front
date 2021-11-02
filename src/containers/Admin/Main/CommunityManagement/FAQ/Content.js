@@ -61,20 +61,22 @@ class Content extends Component {
 
             {AdminCommunity.faqList &&
               AdminCommunity.faqList.map((item, idx) => {
+                console.info(item.checked);
                 return (
                   <Line
                     onClick={() => AdminCommunity.pushToFaqDetail(item, idx)}
                   >
                     <Check active={item.checked}>
                       <div
-                        onClick={(e) => {
+                        onClick={async (e) => {
                           e.stopPropagation();
-                          AdminCommunity.checkDataHandler(
+                          await AdminCommunity.checkDataHandler(
                             'faq',
                             item,
                             item.id,
                             idx
                           );
+                          this.setState({ g: 3 });
                         }}
                       >
                         <img src={checkImg} />
