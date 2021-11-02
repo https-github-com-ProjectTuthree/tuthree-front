@@ -272,6 +272,7 @@ class MyClass {
     await ClassAPI.setSchedule(req)
       .then(async (res) => {
         console.info(res);
+        this.scheduleValue = '';
         this.getDetailSchedule();
         this.getCalendar();
       })
@@ -302,6 +303,7 @@ class MyClass {
     await ClassAPI.putSchedule(req)
       .then(async (res) => {
         console.info(res);
+        this.scheduleValue = '';
         this.getDetailSchedule();
         this.getCalendar();
       })

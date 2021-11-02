@@ -5,6 +5,7 @@ import Tutor from './Matching/Tutor';
 import Tutee from './Matching/Tutee';
 import Test from './Matching/Test';
 import Test2 from './Test2';
+import Test3 from './Test3';
 import Chatting from './Chatting';
 import Matching from './Matching/Matching';
 import MyPage from './MyPage/MyPage';
@@ -30,4 +31,5 @@ export default {
   AdminCommunity,
   AdminChatting,
   Test2,
+  Test3,
 };

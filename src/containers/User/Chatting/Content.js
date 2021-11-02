@@ -546,7 +546,9 @@ class Content extends Component {
               })}
           </ChatMain>
           <ChatWritingBox>
+            {console.info(Chatting.chatMsg)}
             <Textarea
+              value={Chatting.chatMsg}
               mxh={40}
               mih={40}
               placeholder={`메시지를 입력하세요`}
@@ -560,6 +562,7 @@ class Content extends Component {
 
                 // objDiv.scrollTop = objDiv.scrollHeight;
                 this.scrollToBottom();
+                // this.setState({ g: 3 });
               }}
             >
               <div>전송</div>

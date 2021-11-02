@@ -320,10 +320,10 @@ class Step2StudentContainer extends Component {
                 onFocus={(e) => (e.target.placeholder = '')}
                 onBlur={(e) => (e.target.placeholder = '-없이 입력하세요.')}
               />
-              <OverlapBtn>인증번호 요청</OverlapBtn>
+              {/* <OverlapBtn>인증번호 요청</OverlapBtn> */}
             </WrapperBox>
           </ItemBox>
-          <ItemBox>
+          {/* <ItemBox>
             <div>인증번호</div>
             <WrapperBox>
               <Input
@@ -336,7 +336,7 @@ class Step2StudentContainer extends Component {
               />
               <OverlapBtn>확인</OverlapBtn>
             </WrapperBox>
-          </ItemBox>
+          </ItemBox> */}
           <ItemBox>
             <div>성별</div>
             <Radiobox

@@ -292,6 +292,8 @@ const Content = styled.div`
   margin-left: 5px;
   word-break: break-word;
   font-weight: 400;
+  white-space: pre-wrap;
+  text-align: left;
 
   @media (min-width: 0px) and (max-width: 767.98px) {
     font-size: 11px;

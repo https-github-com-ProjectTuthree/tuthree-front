@@ -833,6 +833,7 @@ const TimeLabel = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -938,6 +939,7 @@ const ImgBox = styled.div`
   > img {
     width: 24px;
     height: 24px;
+    cursor: pointer;
   }
 `;
 

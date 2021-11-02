@@ -94,10 +94,10 @@ class MobileContent extends Component {
             </div>
           )}
           <div>
-            <View>
+            {/* <View>
               <img src={viewImg} />
               <div>74</div>
-            </View>
+            </View> */}
             <TotalRating>
               <img src={starImg} />
               <div>{Tutor.tutorDetailAry.star}</div>

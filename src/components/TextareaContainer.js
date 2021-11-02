@@ -119,6 +119,7 @@ class TextareaContainer extends Component {
     const { type, placeholder, value, mxh, mih, bd } = this.props;
     console.info(type);
     console.info(mxh);
+    console.info(value);
     return (
       <Provider Auth={authStore}>
         <Textarea
@@ -133,7 +134,7 @@ class TextareaContainer extends Component {
             }
           }}
           rows={this.state.rows}
-          value={value ? value : this.state.value}
+          value={type === 'chat_msg' ? value : value ? value : this.state.value}
           className={'textarea'}
           placeholderStyle={{ fontWeight: '400' }}
           onChange={this.requestHandler}

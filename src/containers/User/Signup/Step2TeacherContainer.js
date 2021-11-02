@@ -295,13 +295,13 @@ class Step2TeacherContainer extends Component {
                 onBlur={(e) => (e.target.placeholder = '직접 입력')}
               />
               <WrapperBox>
-                <OverlapBtn onClick={() => Auth.emailAuth()}>
+                {/* <OverlapBtn onClick={() => Auth.emailAuth()}>
                   인증번호 요청
-                </OverlapBtn>
+                </OverlapBtn> */}
               </WrapperBox>
             </WrapperBox>
           </ItemBox>
-          <ItemBox>
+          {/* <ItemBox>
             <div>인증번호</div>
             <WrapperBox>
               <Input
@@ -314,7 +314,7 @@ class Step2TeacherContainer extends Component {
               />
               <OverlapBtn>확인</OverlapBtn>
             </WrapperBox>
-          </ItemBox>
+          </ItemBox> */}
           <ItemBox>
             <div>휴대폰 번호</div>
             <Input

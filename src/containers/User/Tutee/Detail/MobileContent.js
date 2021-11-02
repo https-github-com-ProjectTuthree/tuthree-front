@@ -90,14 +90,14 @@ class MobileContent extends Component {
           )}
 
           <div>
-            <View>
+            {/* <View>
               <img src={viewImg} />
               <div>74</div>
             </View>
             <TotalRating>
               <img src={starImg} />
               <div>{Tutee.tuteeDetailAry.star}</div>
-            </TotalRating>
+            </TotalRating> */}
             <Registration type={Tutee.tuteeDetailAry.registration !== 'CLOSE'}>
               {Tutee.tuteeDetailAry.registration === 'CLOSE'
                 ? '모집마감'

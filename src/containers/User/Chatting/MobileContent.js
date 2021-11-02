@@ -614,6 +614,7 @@ class Content extends Component {
           </ChatMain>
           <ChatWritingBox>
             <Textarea
+              value={Chatting.chatMsg}
               mxh={40}
               mih={40}
               placeholder={`메시지를 입력하세요`}

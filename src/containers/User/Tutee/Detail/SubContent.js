@@ -39,14 +39,14 @@ class SubContent extends Component {
         <Container width={Common.width}>
           <Header>
             <Number>
-              <View>
+              {/* <View>
                 <img src={viewImg} />
                 <div>74</div>
-              </View>
-              <Rating>
+              </View> */}
+              {/* <Rating>
                 <img src={starImg} />
                 <div>{Tutee.tuteeDetailAry.star}</div>
-              </Rating>
+              </Rating> */}
             </Number>
             <Registration type={Tutee.tuteeDetailAry.registration !== 'CLOSE'}>
               {Tutee.tuteeDetailAry.registration === 'CLOSE'

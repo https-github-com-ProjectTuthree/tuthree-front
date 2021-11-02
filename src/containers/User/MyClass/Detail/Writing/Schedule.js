@@ -17,6 +17,7 @@ class Schedule extends Component {
       <Container>
         <SearchBox>
           <Input
+            value={MyClass.scheduleValue}
             placeholder="일정을 입력하세요."
             onChange={(e) => MyClass.onChangeHandler(e, 'schedule')}
             onFocus={(e) => (e.target.placeholder = '')}
