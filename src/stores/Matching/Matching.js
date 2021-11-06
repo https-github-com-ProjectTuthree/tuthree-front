@@ -69,12 +69,14 @@ class Matching {
 
   @action checkBookmark = (type) => {
     // console.info(Tutor.tutorDetailAry.userId);
+    console.info(type);
     let userId = '';
     if (type === 'tutor') {
       userId = Tutor.tutorDetailAry.userId;
     } else {
       userId = Tutee.tuteeDetailAry.userId;
     }
+    console.info(userId);
     this.bookmarkAry &&
       this.bookmarkAry[0] &&
       this.bookmarkAry[0].map((item, idx) => {

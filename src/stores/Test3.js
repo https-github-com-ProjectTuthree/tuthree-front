@@ -66,6 +66,22 @@ class Test3 {
         alert('로그인에 실패하였습니다. 입력한 정보가 맞는지 확인하세요.');
       });
   };
+
+  @action logout = async () => {
+    await AccountAPI.logout()
+      .then((res) => {
+        console.info(res);
+        alert('로그아웃 되었습니다.');
+        // this.loggedUserId = '';
+        // this.loggedUserType = '';
+        localStorage.removeItem('token');
+        window.location.href = '/test3';
+      })
+      .catch((e) => {
+        console.info(e);
+        console.info(e.response);
+      });
+  };
 }
 
 export default new Test3();

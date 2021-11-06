@@ -143,7 +143,7 @@ const dummyData = [
   },
 ];
 
-@inject('Test')
+@inject('Test', 'Test3')
 @observer
 class Content extends Component {
   state = {
@@ -154,6 +154,7 @@ class Content extends Component {
     console.info(toJS(Test.sortAry[Test.sortIdx]));
   };
   render() {
+    const { Test3 } = this.props;
     console.info('tutorlendering');
     return (
       <Container>
@@ -175,6 +176,13 @@ class Content extends Component {
                 <img src={downArrowImg} />
               </SortLabel>
 
+              <div
+                onClick={() => {
+                  Test3.logout();
+                }}
+              >
+                로그아웃
+              </div>
               {/* <img src={downArrowImg} style={{ transform: 'rotate(180deg)' }} /> */}
               {/* <img src={upArrowImg} /> */}
 
