@@ -260,7 +260,7 @@ class Content extends Component {
     const { Chatting, Auth } = this.props;
 
     console.info('connect 중 ...');
-    var socket = new SockJS('http://3.34.125.3:8088/tuthree-websocket');
+    var socket = new SockJS('http://54.180.85.174:8088/tuthree-websocket');
     stompClient = Stomp.over(socket);
     // stompClient = socket;
     // stompClient = new Stomp.Client

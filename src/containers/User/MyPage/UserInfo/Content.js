@@ -100,17 +100,7 @@ class Content extends Component {
     const { MyPage } = this.props;
     // let reader = new FileReader();
 
-    let ImgNotAvailable = [
-      'bmp',
-      'jpeg',
-      'gif',
-      'png',
-      'tiff',
-      'psd',
-      'tga',
-      'ai',
-      'svg',
-    ];
+    let ImgNotAvailable = ['bmp', 'jpeg', 'gif', 'png', 'jpg'];
     const extension = e.currentTarget.files[0].name.split('.');
     console.log(extension);
 
@@ -119,7 +109,7 @@ class Content extends Component {
       MyPage.profileImgUrl = URL.createObjectURL(e.currentTarget.files[0]);
       MyPage.userInfoAry.post = '';
     } else {
-      alert('이미지를 업로드 해주세요.');
+      alert('(bmp, jpeg, gif, png, jpg) 이미지를 업로드 해주세요.');
     }
 
     // console.info(toJS(MyPage.profileImgUrl));
@@ -166,6 +156,8 @@ class Content extends Component {
               }}
               style={{ cursor: 'pointer', width: 'auto' }}
             >
+              {console.info('================')}
+              {console.info(toJS(MyPage.userInfoAry))}
               {console.info(MyPage.userInfoAry.post)}
               {console.info(MyPage.profileImgUrl)}
               <ImgBox>
@@ -258,13 +250,12 @@ class Content extends Component {
             </ContentBox>
           </Item>
 
-          <Item>
+          {/* <Item>
             <Label>알림 설정</Label>
             <ContentBox>
-              {/* {MyPage.userInfoAry && MyPage.userInfoAry.notification} */}
               <ToggleButton type="notification" />
             </ContentBox>
-          </Item>
+          </Item> */}
         </Main>
         <ButtonBox>
           <Button onClick={() => MyPage.putUserInfo()}>

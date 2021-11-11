@@ -5,7 +5,7 @@ import searchImg from '../../../../static/images/Admin/Main/search.png';
 import { Link as Connection } from 'react-router-dom';
 import Pagination from '../../../../components/Pagination';
 import checkImg from '../../../../static/images/Common/check.png';
-import DetailCard from './DetailCard';
+import DetailCard from './DetailContent';
 import { toJS } from 'mobx';
 
 @inject('AdminUser', 'AdminChatting')

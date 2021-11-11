@@ -19,9 +19,15 @@ class Content extends Component {
           <Item onClick={() => (MyPage.state = 1)} active={MyPage.state === 1}>
             <div>회원 정보 관리</div>
           </Item>
-          <Item onClick={() => (MyPage.state = 2)} active={MyPage.state === 2}>
-            <div>과외 정보 관리</div>
-          </Item>
+
+          {Auth.loggedUserType !== 'parent' && (
+            <Item
+              onClick={() => (MyPage.state = 2)}
+              active={MyPage.state === 2}
+            >
+              <div>과외 정보 관리</div>
+            </Item>
+          )}
           <Item onClick={() => (MyPage.state = 3)} active={MyPage.state === 3}>
             <div>비밀 번호 변경</div>
           </Item>

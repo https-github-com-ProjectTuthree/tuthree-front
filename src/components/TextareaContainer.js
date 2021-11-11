@@ -11,7 +11,6 @@ import Community from '../stores/Community/Community';
   'Chatting',
   'MyClass',
   'MyPage',
-  'Test2',
   'AdminChatting'
 )
 @observer
@@ -23,7 +22,7 @@ class TextareaContainer extends Component {
     row: 1,
   };
   requestHandler = (event) => {
-    const { type, mxh, Chatting, MyClass, idx, MyPage, Test2, AdminChatting } =
+    const { type, mxh, Chatting, MyClass, idx, MyPage, AdminChatting } =
       this.props;
     // console.info(mxh);
     // const textareaLineHeight = 17;
@@ -93,7 +92,7 @@ class TextareaContainer extends Component {
 
       case 'chat_msg':
         Chatting.chatMsg = event.target.value;
-        Test2.chatMsg = event.target.value;
+        // Test2.chatMsg = event.target.value;
         console.info(Chatting.chatMsg);
         break;
 

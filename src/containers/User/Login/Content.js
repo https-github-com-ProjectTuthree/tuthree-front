@@ -69,9 +69,9 @@ class Content extends Component {
               <div>회원가입</div>
             </Button>
           </Link>
-          <Button background="#F4EF21">
+          {/* <Button background="#F4EF21">
             <div>카카오 로그인</div>
-          </Button>
+          </Button> */}
         </Container>
       </>
     );

@@ -51,11 +51,11 @@ class ClassCard extends Component {
             {MyClass.moreState === id && (
               <Menu>
                 <div>
-                  <div>
+                  {/* <div>
                     <Button>
                       <div>채팅하기</div>
                     </Button>
-                  </div>
+                  </div> */}
                   {Auth.loggedUserType === 'student' && (
                     <div
                       onClick={(e) => {

@@ -222,10 +222,12 @@ class Step2StudentContainer extends Component {
             <div>아이디</div>
             <WrapperBox>
               <Input
-                placeholder="아이디"
+                placeholder="아이디(6-12자 이내로 작성해주세요.)"
                 onChange={(e) => this.inputHandler(e.target, 'id')}
                 onFocus={(e) => (e.target.placeholder = '')}
-                onBlur={(e) => (e.target.placeholder = '아이디')}
+                onBlur={(e) =>
+                  (e.target.placeholder = '아이디(6-12자 이내로 작성해주세요.)')
+                }
               />
               <OverlapBtn onClick={() => Auth.checkId(Auth.signupId)}>
                 중복확인

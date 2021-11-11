@@ -57,9 +57,11 @@ class Nav extends Component {
               >
                 커뮤니티
               </Link>
-              <Link to="/myclass" style={{ marginRight: '0px' }}>
-                내강의실
-              </Link>
+              {localStorage.getItem('token') && (
+                <Link to="/myclass" style={{ marginRight: '0px' }}>
+                  내강의실
+                </Link>
+              )}
 
               {/* <img src={personImg} alt="마이페이지" /> */}
             </Menu>

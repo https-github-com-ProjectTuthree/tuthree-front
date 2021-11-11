@@ -100,9 +100,10 @@ class MyPage {
 
   @action getUserInfo = async () => {
     console.info(Auth.token);
+    console.info(localStorage.getItem('token'));
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
     };
 
@@ -138,7 +139,7 @@ class MyPage {
 
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
       data: formData,
     };
@@ -170,7 +171,7 @@ class MyPage {
     this.tutoringInfoAry = [];
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
     };
 
@@ -236,7 +237,7 @@ class MyPage {
 
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
       data: formData,
     };
@@ -268,7 +269,7 @@ class MyPage {
     this.tutoringInfoAry = [];
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
     };
 
@@ -306,7 +307,7 @@ class MyPage {
     console.info(this.detailContent);
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
       data: {
         regionL: Auth.selectedLocation,
@@ -347,7 +348,7 @@ class MyPage {
 
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
     };
 
@@ -378,7 +379,7 @@ class MyPage {
 
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
       params: {
         parentId: parentId,
@@ -418,7 +419,7 @@ class MyPage {
     }
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
 
       data: {
@@ -450,7 +451,7 @@ class MyPage {
   @action withDrawal = async () => {
     const req = {
       headers: {
-        Authorization: Auth.token,
+        Authorization: localStorage.getItem('token'),
       },
     };
 

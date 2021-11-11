@@ -70,7 +70,16 @@ class Auth {
         console.info(res);
         if (res.data.success) {
           alert('로그아웃 되었습니다');
+
+          this.token = '';
+          this.loggedAdminId = '';
+          this.loggedAdminType = '';
+          this.loggedAdminName = '';
+
           localStorage.removeItem('adminToken');
+          localStorage.removeItem('adminId');
+          localStorage.removeItem('adminType');
+          localStorage.removeItem('adminName');
           window.location.href = '/admin';
         }
       })

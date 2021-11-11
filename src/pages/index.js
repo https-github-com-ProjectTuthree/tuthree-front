@@ -4,9 +4,7 @@ export { default as Login } from './Login';
 export { default as Forgotten } from './Forgotten';
 export { default as Notice } from './Notice';
 export { default as Community } from './Community';
-export { default as Test } from './Test';
-export { default as Test2 } from './Test2';
-export { default as Test3 } from './Test3';
+
 export { default as Tutor } from './Tutor';
 export { default as Tutee } from './Tutee';
 export { default as Chatting } from './Chatting';

@@ -6,9 +6,19 @@ import AdminNav from '../../components/AdminNav';
 import MobAdminNav from '../../components/AdminMobNav';
 import Common from '../../stores/Common/Common';
 
-@inject('Common')
+@inject('Common', 'AdminAuth')
 @observer
 class Chatting extends Component {
+  componentDidMount = () => {
+    const { AdminAuth } = this.props;
+
+    console.info('aaa');
+    console.info(AdminAuth.loggedAdminId);
+    if (!localStorage.getItem('adminId')) {
+      alert('관리자 계정으로 로그인하세요.');
+      window.location.href = '/admin';
+    }
+  };
   render() {
     return (
       <>

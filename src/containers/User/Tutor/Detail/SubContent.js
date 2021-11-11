@@ -106,7 +106,8 @@ class SubContent extends Component {
               <Content>{Tutor.tutorDetailAry.cost}</Content>
             </SubMain>
           </Main>
-          {Auth.loggedUserType !== 'teacher' && (
+
+          {Auth.loggedUserType && Auth.loggedUserType !== 'teacher' && (
             <ButtonBox>
               <Button
                 // bg="#888"

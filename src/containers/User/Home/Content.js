@@ -10,6 +10,8 @@ import reportImg from '../../../static/images/Home/report.png';
 import videoConferenceImg from '../../../static/images/Home/video-conference.png';
 import gradingImg from '../../../static/images/Home/grading.png';
 import searchInfo from '../../../static/images/Home/SearchInfo.png';
+import chattingInfo from '../../../static/images/Home/chattingInfo.png';
+import matchingInfo from '../../../static/images/Home/matchingInfo.png';
 
 import Common from '../../../stores/Common/Common';
 
@@ -22,18 +24,21 @@ class ContentContainer extends Component {
     }
     const chapter_one = [
       {
+        img: `${searchInfo}`,
         step: 'step1',
         title: '선생님/학생 조회',
         description:
           '지역, 과목, 급여 등의 정보를 설정하여 자유롭게 원하는 대상을 탐색하세요.',
       },
       {
+        img: `${chattingInfo}`,
         step: 'step2',
         title: '1:1 채팅 문의',
         description: '1:1 채팅 문의를 통해 자유롭게 질문을 하세요.',
       },
 
       {
+        img: `${matchingInfo}`,
         step: 'step3',
         title: '과외 매칭',
         description:
@@ -85,7 +90,7 @@ class ContentContainer extends Component {
                       <Img
                         service="one"
                         background="#bbbbbb"
-                        src={searchInfo}
+                        src={item.img}
                         style={{ backgroundImage: `${searchInfo}` }}
                       />
                       <Content service="one">
@@ -185,9 +190,9 @@ const Item = styled.div`
 const Img = styled.img`
   width: 100%;
   height: ${(props) => (props.service === 'one' ? '65%' : '100%')};
-  object-fit: cover;
+  // object-fit: cover;
   background-color: ${(props) => (props.background ? props.background : '')};
-  filter: ${(props) => (props.service === 'one' ? 'blur(3px)' : 'none')};
+  // filter: ${(props) => (props.service === 'one' ? 'blur(3px)' : 'none')};
 
   @media (min-width: 0px) and (max-width: 767.98px) {
     height: 50%;

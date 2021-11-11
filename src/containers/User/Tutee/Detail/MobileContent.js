@@ -57,7 +57,7 @@ class MobileContent extends Component {
     return (
       <Container>
         <Number>
-          {Auth.loggedUserType === 'teacher' && (
+          {Auth.loggedUserType && Auth.loggedUserType === 'teacher' && (
             <div>
               <Button
                 // bg="#888"

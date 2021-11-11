@@ -130,7 +130,7 @@ export default Enrollment;
 const ModalBox = styled.div`
   // display: none;
   //   position: fixed;
-  height: 30%;
+  // height: 30%;
   //top: 40%;
   //right: 14%;
   // bottom: 0;

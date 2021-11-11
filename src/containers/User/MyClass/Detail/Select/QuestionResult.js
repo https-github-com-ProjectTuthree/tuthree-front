@@ -44,16 +44,20 @@ class QuestionResult extends Component {
                       <Item>
                         <Label>
                           <div>{item.question}번</div>
-                          <Marking active={item.score === 'RIGHT'}>
-                            <div></div>
-                            <div></div>
-                          </Marking>
+                          {item.score !== 'NONE' && (
+                            <Marking active={item.score === 'RIGHT'}>
+                              <div></div>
+                              <div></div>
+                            </Marking>
+                          )}
                         </Label>
                         <Content>
                           <TuteeAnswer>{item.studentAnswer}</TuteeAnswer>
-                          <OriginAnswer active={item.score === 'RIGHT'}>
-                            {item.teacherAnswer}
-                          </OriginAnswer>
+                          {item.score !== 'NONE' && (
+                            <OriginAnswer active={item.score === 'RIGHT'}>
+                              {item.teacherAnswer}
+                            </OriginAnswer>
+                          )}
                           {/* <div>
                             {item.score} / {item.studentAnswer} /{' '}
                             {item.teacherAnswer}

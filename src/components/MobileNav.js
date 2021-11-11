@@ -75,13 +75,16 @@ class MobileNav extends React.Component {
                     <Link mobile={true} to="/community">
                       커뮤니티
                     </Link>
-                    <Link
-                      mobile={true}
-                      to="/myclass"
-                      style={{ marginRight: '0px' }}
-                    >
-                      내강의실
-                    </Link>
+
+                    {localStorage.getItem('token') && (
+                      <Link
+                        mobile={true}
+                        to="/myclass"
+                        style={{ marginRight: '0px' }}
+                      >
+                        내강의실
+                      </Link>
+                    )}
 
                     {/* <img src={personImg} alt="마이페이지" /> */}
                   </Menu>

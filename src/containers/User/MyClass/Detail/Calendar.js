@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Modal from '../../../../components/Modal';
 import previousImg from '../../../../static/images/Common/previous2.png';
 import nextImg from '../../../../static/images/Common/next2.png';
+import infoImg from '../../../../static/images/Common/info.png';
 import ScheduleWriting from './Writing/ScheduleWriting';
 import SelectReport from './Select/ClassReport';
 import { toJS } from 'mobx';
@@ -385,14 +386,28 @@ class Calendar extends React.Component {
           </DateItem>
           <ButtonBox>
             {Auth.loggedUserType !== 'parent' && (
-              <Button
-                width={100}
-                onClick={() => {
-                  window.open(VIDEO_URL);
-                }}
-              >
-                <div>화상강의</div>
-              </Button>
+              <WrapperBox>
+                <Description>
+                  <img src={infoImg} />
+                </Description>
+                <Button
+                  width={120}
+                  onClick={() => {
+                    window.open(VIDEO_URL);
+                  }}
+                >
+                  <div>화상강의</div>
+                  <img src={infoImg} />
+                  <div>
+                    1. 알림창이 안 뜨거나 화면이 보이지 않을 때 브라우저 설정을
+                    확인하기
+                    <br />
+                    2. 마이크/화면 허용이 되어있는지 확인하기
+                    <br />
+                    3. 화면 공유하고 다른 화면으로 전환하지는 않았는지 확인하기
+                  </div>
+                </Button>
+              </WrapperBox>
             )}
 
             {Auth.loggedUserType !== 'parent' && (
@@ -712,6 +727,9 @@ const ButtonBox = styled.div`
   display: flex;
 `;
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => (props.width ? props.width : '120')}px;
   height: 36px;
@@ -721,9 +739,33 @@ const Button = styled.button`
   margin: 0 5px;
   margin-right: ${(props) => (props.last ? '5px' : '')};
   border-radius: 5px;
+  position: relative;
+  > img {
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+  }
   > div {
     font-size: 15px;
     font-weight: bold;
+  }
+
+  > div:nth-of-type(2) {
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: -400%;
+    right: 0;
+    color: #000;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-weight: 500;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  &:hover div:nth-of-type(2) {
+    display: block;
   }
 
   @media (min-width: 0px) and (max-width: 767.98px) {
@@ -732,12 +774,24 @@ const Button = styled.button`
     > div {
       font-size: 11px;
     }
+    > div:nth-of-type(2) {
+      width: 200px;
+      top: -450%;
+    }
+    > img {
+      width: 14px;
+      height: 14px;
+    }
   }
   @media (min-width: 768px) and (max-width: 991.98px) {
     width: ${(props) => (props.width ? props.width - 28 : '120')}px;
     height: 28px;
     > div {
       font-size: 13px;
+    }
+    > img {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -746,6 +800,10 @@ const Button = styled.button`
     height: 32px;
     > div {
       font-size: 14px;
+    }
+    > img {
+      width: 18px;
+      height: 18px;
     }
   }
 `;
@@ -770,4 +828,25 @@ const Layer = styled.div`
     overflow-y: scroll !important;
   }
 `;
+
+const WrapperBox = styled.div`
+  position: relative;
+`;
+const Description = styled.div`
+  // width: 30px;
+  // height: 30px;
+  display: none;
+  padding: 5px;
+  box-sizing: border-box;
+  // box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  // top: -100%;
+  // right: 25%;
+  // transform: translateX(-25%);
+  // > img {
+  //   width: 24px;
+  //   height: 24px;
+  // }
+`;
+
 export default Calendar;

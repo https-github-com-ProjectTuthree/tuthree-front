@@ -16,9 +16,6 @@ import {
   Community,
   Tutor,
   Tutee,
-  Test,
-  Test2,
-  Test3,
   Chatting,
   MyPage,
   MyClass,
@@ -182,9 +179,7 @@ class App extends React.Component {
             <Route path="/community" component={Community} />
             <Route path="/tutor" component={Tutor} />
             <Route path="/tutee" component={Tutee} />
-            <Route path="/test" component={Test} />
-            <Route path="/test2" component={Test2} />
-            <Route path="/test3" component={Test3} />
+
             <Route path="/chatting" component={Chatting} />
             <Route path="/mypage" component={MyPage} />
             <Route path="/myclass" component={MyClass} />

@@ -104,7 +104,7 @@ class SubContent extends Component {
               <Content>{Tutee.tuteeDetailAry.cost}</Content>
             </SubMain>
           </Main>
-          {Auth.loggedUserType === 'teacher' && (
+          {Auth.loggedUserType && Auth.loggedUserType === 'teacher' && (
             <ButtonBox>
               {console.info(Matching.isCheckBookmark)}
               <Button

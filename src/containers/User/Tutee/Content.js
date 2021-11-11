@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Filter from '../../../components/Filter';
 import Card from '../../../components/Card';
@@ -6,155 +6,26 @@ import { inject, observer, Provider } from 'mobx-react';
 import Pagination from '../../../components/Pagination';
 import { toJS } from 'mobx';
 import downArrowImg from '../../../static/images/Common/down-arrow.png';
-
-const dummyData = [
-  {
-    id: 1,
-    name: '김길동',
-    school: '가천대학교 컴퓨터공학과',
-    gender: 'MALE',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 3,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    school: '가천대학교 컴퓨터공학과',
-    gender: 'MALE',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.1,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    school: '가천대학교 컴퓨터공학과',
-    gender: 'MALE',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    school: '가천대학교 컴퓨터공학과',
-    gender: 'FEMALE',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'MALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'FEMALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'MALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'FEMALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'MALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'OPEN',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'MALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'OPEN',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'MALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-  {
-    id: 1,
-    name: '김길동',
-    gender: 'FEMALE',
-    school: '가천대학교 컴퓨터공학과',
-    subject: '영어, 수학',
-    location: '서울시 강남구',
-    budget: '30만원',
-    rating: 4.7,
-    registration: 'CLOSE',
-  },
-];
+// import { history } from 'react-router-dom';
 
 @inject('Tutee')
 @observer
 class Content extends Component {
   state = {
     is_open: false,
+    locationKeys: [],
   };
 
   componentDidMount = () => {
     const { Tutee } = this.props;
+    console.info('a');
+    console.info(this.props.history);
     Tutee.getTuteeList(Tutee.tuteeCurrentPage);
   };
+
   render() {
     const { Tutee } = this.props;
+
     return (
       <Container>
         <Name>학생 찾기</Name>

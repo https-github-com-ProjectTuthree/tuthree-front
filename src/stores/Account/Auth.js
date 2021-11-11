@@ -511,7 +511,7 @@ class Auth {
         this.lowerLocationAry = [];
 
         e.gugun.map((item, idx) => {
-          console.info(item);
+          // console.info(item);
           this.lowerLocationAry.push(item);
         });
         break;
@@ -519,6 +519,21 @@ class Auth {
       case 'lowerLocation':
         console.info('lowerLocation');
         this.setLowerLocation(e);
+
+        console.info(
+          this.selectedLocation.includes(
+            `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
+          )
+        );
+        if (
+          this.selectedLocation.includes(
+            `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
+          )
+        ) {
+          alert('지역이 중복되었습니다. 다시 선택해주세요.');
+          return;
+        }
+
         console.info(
           `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
         );
@@ -541,6 +556,16 @@ class Auth {
         break;
       case 'lowerSubject':
         this.setLowerSubject(e);
+
+        if (
+          this.selectedSubject.includes(
+            `<${this.selectedUpperSubject}> ${this.selectedLowerSubject}`
+          )
+        ) {
+          alert('과목이 중복되었습니다. 다시 선택해주세요.');
+          return;
+        }
+
         this.selectedSubject.push(
           `<${this.selectedUpperSubject}> ${this.selectedLowerSubject}`
         );
@@ -1020,6 +1045,18 @@ class Auth {
   };
 
   @action checkId = async (id) => {
+    console.info(typeof id);
+    console.info(id.length);
+    console.info(typeof id.length);
+
+    if (id.length < 6 || id.length > 12) {
+      console.info('a');
+      alert('아이디를 6-12자 이내로 작성해주세요.');
+      this.idErrorMessage = '* 아이디를 6-12자 이내로 작성해주세요.';
+      this.checkSignupId = true;
+      return;
+    }
+
     console.info(id);
     const req = {
       id: id,
@@ -1123,9 +1160,12 @@ class Auth {
       .then((res) => {
         console.info(res);
         alert('로그아웃 되었습니다.');
-        // this.loggedUserId = '';
-        // this.loggedUserType = '';
+        this.loggedUserId = '';
+        this.loggedUserType = '';
         localStorage.removeItem('token');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
         window.location.href = '/';
       })
       .catch((e) => {

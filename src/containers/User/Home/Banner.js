@@ -57,7 +57,7 @@ class Banner extends Component {
       dots: true, // 슬라이드 밑에 점 보이게
       infinite: true, // 무한으로 반복
       speed: 500,
-      autoplay: true,
+      // autoplay: true,
       autoplaySpeed: 4000, // 넘어가는 속도
       slidesToShow: 1, // 4장씩 보이게
       slidesToScroll: 1, // 1장씩 뒤로 넘어가게
@@ -77,24 +77,26 @@ class Banner extends Component {
     // };
 
     return (
-      <SliderContainer {...settings}>
-        {data.map((d) => {
-          return (
-            <Item color={d.color}>
-              <OuterContainer>
-                <InnerContainer>
-                  <div>
-                    <span>{d.text.title}</span>
-                    <span>{d.text.content}</span>
-                  </div>
-                </InnerContainer>
-              </OuterContainer>
-              {/* <div>{d.text.content}</div> */}
-              {/* <Img src={d.image} /> */}
-            </Item>
-          );
-        })}
-      </SliderContainer>
+      <Container>
+        <SliderContainer {...settings}>
+          {data.map((d) => {
+            return (
+              <Item color={d.color}>
+                <OuterContainer>
+                  <InnerContainer>
+                    <div>
+                      <span>{d.text.title}</span>
+                      <span>{d.text.content}</span>
+                    </div>
+                  </InnerContainer>
+                </OuterContainer>
+                {/* <div>{d.text.content}</div> */}
+                {/* <Img src={d.image} /> */}
+              </Item>
+            );
+          })}
+        </SliderContainer>
+      </Container>
     );
   }
 }
@@ -102,11 +104,9 @@ class Banner extends Component {
 export default Banner;
 
 const Container = styled.div`
-  width: 100%;
-  height: 500px;
-  background-color: #cccccc;
-  //   background: url('../../static/images/Home/banner1.jpg') no-repeat;
-  //   background-repeat: no-repeat;
+  // width: 100%;
+  // height: 500px;
+  overflow: hidden;
 `;
 
 const Img = styled.img`
@@ -149,7 +149,7 @@ const SliderContainer = styled(Slider)`
 `;
 
 const Item = styled.div`
-  width: 100%;
+  // width: 100%;
   // border: 6px solid green;
   height: 400px;
   position: relative;

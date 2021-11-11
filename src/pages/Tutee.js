@@ -9,6 +9,18 @@ import MovileNavContainer from '../components/MobileNav';
 @inject('Common')
 @observer
 class Tutee extends Component {
+  componentDidMount = () => {
+    const { history } = this.props;
+    console.info(this.props.history);
+    // if(this.props.history.action === "pop")
+    // if (history.action === 'POP') {
+    //   history.goForward();
+    // }
+    window.onhashchange = function () {
+      //blah blah blah
+      console.info('b');
+    };
+  };
   render() {
     return (
       <>

@@ -42,7 +42,6 @@ const CloseModalIcon = styled.img`
   cursor: pointer;
   width: 36px;
   height: 36px;
-
   @media (min-width: 0px) and (max-width: 767.98px) {
     width: 24px;
     height: 24px;

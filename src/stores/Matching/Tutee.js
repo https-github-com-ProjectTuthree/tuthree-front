@@ -174,9 +174,20 @@ class Tutee {
       case 'lowerLocation':
         console.info('lowerLocation');
         this.setLowerLocation(e);
+
         console.info(
           `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
         );
+
+        if (
+          this.selectedLocation.includes(
+            `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
+          )
+        ) {
+          alert('지역이 중복되었습니다. 다시 선택해주세요.');
+          return;
+        }
+
         this.selectedLocation.push(
           `${this.selectedUpperLocation} ${this.selectedLowerLocation}`
         );
@@ -196,6 +207,16 @@ class Tutee {
         break;
       case 'lowerSubject':
         this.setLowerSubject(e);
+
+        if (
+          this.selectedSubject.includes(
+            `<${this.selectedUpperSubject}> ${this.selectedLowerSubject}`
+          )
+        ) {
+          alert('과목이 중복되었습니다. 다시 선택해주세요.');
+          return;
+        }
+
         this.selectedSubject.push(
           `<${this.selectedUpperSubject}> ${this.selectedLowerSubject}`
         );
